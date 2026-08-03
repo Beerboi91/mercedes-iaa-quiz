@@ -200,12 +200,6 @@ export default function HostView({ navigate }) {
       {/* STAGE 3: ACTIVE GAME SLIDES (Lobby, Questions, Feedback, Leaderboard) */}
       {step === 'game' && roomState && (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#ffffff' }}>
-          <div className="slide-header">
-            <span style={{ fontSize: '1.2rem', fontFamily: 'MBCorpoSTitle', fontWeight: 'bold' }}>
-              MERCEDES-BENZ QUIZ ({roomState.language}) - {roomState.mode.toUpperCase()} MODUS
-            </span>
-            <div style={{ width: '75px' }} />
-          </div>
 
           {/* SCREEN 1: QR Code Lobby (`slide_qr.png`) */}
           {roomState.status === 'lobby' && (
