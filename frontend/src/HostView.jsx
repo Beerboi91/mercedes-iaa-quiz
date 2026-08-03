@@ -7,10 +7,35 @@ export default function HostView({ navigate }) {
   const [mode, setMode] = useState('standard'); // 'standard' (10) | 'express' (5)
   const [language, setLanguage] = useState('DE'); // 'DE' | 'EN'
   const [roomState, setRoomState] = useState(null);
+  const [showResetConfirmModal, setShowResetConfirmModal] = useState(false);
 
   // Triple-tap on Mercedes logo refs
   const tapCountRef = useRef(0);
   const lastTapTimeRef = useRef(0);
+
+  // Preload essential images
+  useEffect(() => {
+    ['/logo.svg', '/Pokal.svg', '/Title.png'].forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
+  // 3-Minute Inactivity Auto-Reset
+  useEffect(() => {
+    if (step !== 'game' || !roomState) return;
+
+    const inactivityTimeout = setTimeout(() => {
+      console.log('3-minute inactivity timeout reached. Auto-resetting room...');
+      if (roomState?.roomId) {
+        socket.emit('reset_room', { roomId: roomState.roomId });
+      }
+      setRoomState(null);
+      setStep('title');
+    }, 180000);
+
+    return () => clearTimeout(inactivityTimeout);
+  }, [step, roomState?.status, roomState?.answersReceivedCount, roomState?.currentQuestionIndex]);
 
   useEffect(() => {
     const handleRoomState = (state) => {
@@ -61,12 +86,7 @@ export default function HostView({ navigate }) {
 
     if (tapCountRef.current >= 3) {
       tapCountRef.current = 0;
-      if (roomState?.roomId) {
-        socket.emit('reset_room', { roomId: roomState.roomId });
-      }
-      setRoomState(null);
-      setStep('title');
-      alert('Hostess Quick-Reset (3-Tap Stern): Zurück zum Startbildschirm.');
+      setShowResetConfirmModal(true);
     }
   };
 
@@ -92,9 +112,42 @@ export default function HostView({ navigate }) {
             filter: step === 'title' ? 'brightness(0) invert(1)' : 'none',
             transition: 'filter 0.2s ease'
           }}
-          title="3x schnell tippen für Hostess Quick-Reset"
-        />
-      </div>
+      {/* Hostess 3-Tap Reset Confirmation Modal */}
+      {showResetConfirmModal && (
+        <div className="mb-timer-overlay" style={{ background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)', zIndex: 2000 }}>
+          <div style={{ background: '#ffffff', border: '2px solid #000000', padding: '3rem 3.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.2)', maxWidth: '650px', width: '90%', textAlign: 'center' }}>
+            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', color: '#000000', fontFamily: 'MBCorpoSTitle' }}>
+              QUIZ ZURÜCKSETZEN?
+            </h2>
+            <p style={{ fontSize: '1.2rem', color: '#555555', marginBottom: '2.5rem', fontFamily: 'MBCorpoSText', lineHeight: '1.4' }}>
+              Möchtest du das laufende Quiz wirklich beenden und zum Startbildschirm zurückkehren?
+            </p>
+            <div style={{ display: 'flex', gap: '1.5rem', width: '100%', justifyContent: 'center' }}>
+              <button
+                className="mb-btn"
+                style={{ flex: 1, padding: '1rem', fontSize: '1.1rem' }}
+                onClick={() => {
+                  if (roomState?.roomId) {
+                    socket.emit('reset_room', { roomId: roomState.roomId });
+                  }
+                  setRoomState(null);
+                  setStep('title');
+                  setShowResetConfirmModal(false);
+                }}
+              >
+                JA, ZURÜCKSETZEN
+              </button>
+              <button
+                className="mb-btn mb-btn-outline"
+                style={{ flex: 1, padding: '1rem', fontSize: '1.1rem' }}
+                onClick={() => setShowResetConfirmModal(false)}
+              >
+                ABBRECHEN
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Option B: 30-Second Empty Room Grace Timer Overlay */}
       {roomState?.isEmptyRoomGrace && (
