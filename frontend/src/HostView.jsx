@@ -462,11 +462,27 @@ export default function HostView({ navigate }) {
 
                 {/* Right Column: Trophy */}
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <img 
-                    src="/Pokal.svg" 
-                    alt="Pokal" 
-                    style={{ width: '380px', maxHeight: '480px', objectFit: 'contain' }} 
-                  />
+                  <div style={{ position: 'relative', display: 'inline-block' }}>
+                    <img 
+                      src="/Pokal.svg" 
+                      alt="Pokal" 
+                      style={{ width: '380px', maxHeight: '480px', objectFit: 'contain' }} 
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '28%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        fontFamily: 'MBCorpoSTitle, sans-serif',
+                        fontSize: '5.5rem',
+                        fontWeight: 'bold',
+                        color: '#000000'
+                      }}
+                    >
+                      1
+                    </div>
+                  </div>
                 </div>
 
               </div>
