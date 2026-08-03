@@ -304,17 +304,17 @@ export default function HostView({ navigate }) {
             <div className="slide-container" style={{ justifyContent: 'flex-start', paddingTop: '2rem', position: 'relative' }}>
               {/* Prominent Overlay Graphic with Circular Countdown */}
               <div className="mb-timer-overlay">
-                <div style={{ background: '#000000', border: '3px solid #1CA0FF', padding: '3rem 4rem', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 15px 40px rgba(0,0,0,0.6)', maxWidth: '850px', width: '90%' }}>
-                  <h2 style={{ fontSize: '1.4rem', marginBottom: '1rem', letterSpacing: '2px', color: '#737373', fontFamily: 'MBCorpoSTitle', textTransform: 'uppercase', fontWeight: 'bold' }}>
+                <div style={{ background: '#000000', border: '3px solid #1CA0FF', padding: '3.5rem 4.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 20px 50px rgba(0,0,0,0.7)', maxWidth: '900px', width: '92%' }}>
+                  <h2 style={{ fontSize: '1.5rem', marginBottom: '1.2rem', letterSpacing: '3px', color: '#1CA0FF', fontFamily: 'MBCorpoSTitle', textTransform: 'uppercase', fontWeight: 'bold' }}>
                     RICHTIGE ANTWORT:
                   </h2>
 
-                  {/* Prominent Answer Card */}
-                  <div style={{ background: '#1CA0FF', color: '#ffffff', width: '100%', padding: '1.5rem 2rem', display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem', borderRadius: '0px' }}>
-                    <div style={{ background: '#ffffff', color: '#1CA0FF', fontSize: '2.2rem', fontWeight: 'bold', width: '55px', height: '55px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'MBCorpoSTitle', flexShrink: 0 }}>
+                  {/* High-Impact Prominent Answer Card */}
+                  <div style={{ background: '#1CA0FF', color: '#ffffff', width: '100%', padding: '1.8rem 2.5rem', display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '2.2rem', borderRadius: '0px', boxShadow: '0 6px 20px rgba(28, 160, 255, 0.4)' }}>
+                    <div style={{ background: '#ffffff', color: '#1CA0FF', fontSize: '2.6rem', fontWeight: 'bold', width: '65px', height: '65px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'MBCorpoSTitle', flexShrink: 0 }}>
                       {String.fromCharCode(65 + (roomState.currentQuestion?.correctAnswerIndex || 0))}
                     </div>
-                    <span style={{ fontSize: '2.2rem', fontWeight: 'bold', fontFamily: 'MBCorpoSTitle', lineHeight: '1.2' }}>
+                    <span style={{ fontSize: '2.6rem', fontWeight: 'bold', fontFamily: 'MBCorpoSTitle', lineHeight: '1.2' }}>
                       {roomState.currentQuestion?.options[roomState.currentQuestion.correctAnswerIndex]}
                     </span>
                   </div>
@@ -334,7 +334,7 @@ export default function HostView({ navigate }) {
                         r="70"
                         style={{
                           strokeDasharray: 439.82,
-                          strokeDashoffset: 439.82 * (1 - (roomState.feedbackTimerSeconds / 10))
+                          strokeDashoffset: 439.82 * (1 - (roomState.feedbackTimerSeconds / 5))
                         }}
                       />
                     </svg>
@@ -342,7 +342,7 @@ export default function HostView({ navigate }) {
                   </div>
 
                   <button className="mb-btn" style={{ padding: '0.9rem 2.5rem', fontSize: '1.2rem' }} onClick={handleNextQuestion}>
-                    DIREKT WEITER (10S)
+                    DIREKT WEITER (5S)
                   </button>
                 </div>
               </div>

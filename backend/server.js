@@ -153,7 +153,7 @@ function startFeedbackTimer(room) {
   }
 
   room.status = 'feedback';
-  room.feedbackTimerSeconds = 10;
+  room.feedbackTimerSeconds = 5;
   broadcastRoomState(room.roomId);
 
   room.feedbackTimerInterval = setInterval(() => {
