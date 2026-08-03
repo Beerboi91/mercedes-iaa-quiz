@@ -6,10 +6,10 @@ export const QUESTIONS = [
       en: "Which model introduced the modern era of electric vehicles at Mercedes-Benz?"
     },
     options: {
-      de: ["EQC", "EQS", "EQA", "EQE"],
-      en: ["EQC", "EQS", "EQA", "EQE"]
+      de: ["EQA", "EQC", "EQS", "EQE"],
+      en: ["EQA", "EQC", "EQS", "EQE"]
     },
-    correctAnswerIndex: 0
+    correctAnswerIndex: 1
   },
   {
     id: 2,
@@ -18,10 +18,10 @@ export const QUESTIONS = [
       en: "What is the name of the revolutionary Mercedes-Benz infotainment system featuring the MBUX Hyperscreen?"
     },
     options: {
-      de: ["MBUX", "COMAND", "MB OS", "DrivePilot"],
-      en: ["MBUX", "COMAND", "MB OS", "DrivePilot"]
+      de: ["COMAND", "MB OS", "MBUX", "DrivePilot"],
+      en: ["COMAND", "MB OS", "MBUX", "DrivePilot"]
     },
-    correctAnswerIndex: 0
+    correctAnswerIndex: 2
   },
   {
     id: 3,
@@ -30,10 +30,10 @@ export const QUESTIONS = [
       en: "What range did the Vision EQXX technology vehicle achieve on a single battery charge?"
     },
     options: {
-      de: ["Über 1.000 km", "Rund 750 km", "Etwa 500 km", "Genau 850 km"],
-      en: ["Over 1,000 km", "Around 750 km", "About 500 km", "Exactly 850 km"]
+      de: ["Rund 750 km", "Über 1.000 km", "Etwa 500 km", "Genau 850 km"],
+      en: ["Around 750 km", "Over 1,000 km", "About 500 km", "Exactly 850 km"]
     },
-    correctAnswerIndex: 0
+    correctAnswerIndex: 1
   },
   {
     id: 4,
@@ -42,10 +42,10 @@ export const QUESTIONS = [
       en: "In which year did Carl Benz patent the first motorcar with a gas engine?"
     },
     options: {
-      de: ["1886", "1901", "1926", "1899"],
-      en: ["1886", "1901", "1926", "1899"]
+      de: ["1901", "1926", "1899", "1886"],
+      en: ["1901", "1926", "1899", "1886"]
     },
-    correctAnswerIndex: 0
+    correctAnswerIndex: 3
   },
   {
     id: 5,
@@ -54,10 +54,10 @@ export const QUESTIONS = [
       en: "Which Mercedes-Benz autonomous driving system is certified for SAE Level 3?"
     },
     options: {
-      de: ["DRIVE PILOT", "PARK PILOT", "CRUISE CONTROL", "ASSIST PILOT"],
-      en: ["DRIVE PILOT", "PARK PILOT", "CRUISE CONTROL", "ASSIST PILOT"]
+      de: ["PARK PILOT", "DRIVE PILOT", "CRUISE CONTROL", "ASSIST PILOT"],
+      en: ["PARK PILOT", "DRIVE PILOT", "CRUISE CONTROL", "ASSIST PILOT"]
     },
-    correctAnswerIndex: 0
+    correctAnswerIndex: 1
   },
   {
     id: 6,
@@ -66,10 +66,10 @@ export const QUESTIONS = [
       en: "What do the three points of the iconic Mercedes-Benz star represent?"
     },
     options: {
-      de: ["Land, Wasser, Luft", "Qualität, Luxus, Sicherheit", "Vergangenheit, Gegenwart, Zukunft", "Design, Motor, Komfort"],
-      en: ["Land, Water, Air", "Quality, Luxury, Safety", "Past, Present, Future", "Design, Engine, Comfort"]
+      de: ["Qualität, Luxus, Sicherheit", "Vergangenheit, Gegenwart, Zukunft", "Land, Wasser, Luft", "Design, Motor, Komfort"],
+      en: ["Quality, Luxury, Safety", "Past, Present, Future", "Land, Water, Air", "Design, Engine, Comfort"]
     },
-    correctAnswerIndex: 0
+    correctAnswerIndex: 2
   },
   {
     id: 7,
@@ -90,22 +90,22 @@ export const QUESTIONS = [
       en: "Which top-tier Mercedes-Benz sub-brand is known for ultimate exclusive luxury?"
     },
     options: {
-      de: ["Mercedes-Maybach", "Mercedes-AMG", "EQ", "Smart"],
-      en: ["Mercedes-Maybach", "Mercedes-AMG", "EQ", "Smart"]
+      de: ["Mercedes-AMG", "EQ", "Mercedes-Maybach", "Smart"],
+      en: ["Mercedes-AMG", "EQ", "Mercedes-Maybach", "Smart"]
     },
-    correctAnswerIndex: 0
+    correctAnswerIndex: 2
   },
   {
     id: 9,
     question: {
-      de: "Welcher ikonisierte Geländewagen feierte 2024 seine Premiere als vollelektrische G 580 mit EQ Technologie?",
+      de: "Welcher ikonische Geländewagen feierte 2024 seine Premiere als vollelektrische G 580 mit EQ Technologie?",
       en: "Which iconic off-roader premiered as the fully electric G 580 with EQ technology in 2024?"
     },
     options: {
-      de: ["G-Klasse", "GLE", "GLS", "GLC"],
-      en: ["G-Class", "GLE", "GLS", "GLC"]
+      de: ["GLE", "GLS", "G-Klasse", "GLC"],
+      en: ["GLE", "GLS", "G-Class", "GLC"]
     },
-    correctAnswerIndex: 0
+    correctAnswerIndex: 2
   },
   {
     id: 10,
@@ -114,9 +114,9 @@ export const QUESTIONS = [
       en: "What is the name of the dedicated operating system developed by Mercedes-Benz for its future vehicle architecture?"
     },
     options: {
-      de: ["MB.OS", "BenzOS", "DriveOS", "EQ-OS"],
-      en: ["MB.OS", "BenzOS", "DriveOS", "EQ-OS"]
+      de: ["BenzOS", "MB.OS", "DriveOS", "EQ-OS"],
+      en: ["BenzOS", "MB.OS", "DriveOS", "EQ-OS"]
     },
-    correctAnswerIndex: 0
+    correctAnswerIndex: 1
   }
 ];
