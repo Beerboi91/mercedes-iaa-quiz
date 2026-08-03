@@ -250,19 +250,41 @@ export default function MobileView({ navigate }) {
 
         {/* SCREEN 3: Active Question View (`Frame 2 - Frage 1.png` & `Frame 2 - Frage 2 - richtige Antwort.png`) */}
         {joined && roomState?.status === 'question' && (
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between', padding: '1rem 0' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between', padding: '0.5rem 0 1rem 0' }}>
+            {/* Top Timer Progress Bar & Counter (GANZ OBEN) */}
+            <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
+              <div style={{ width: '100%', height: '6px', background: '#e5e5e5', marginBottom: '0.6rem' }}>
+                <div
+                  style={{
+                    height: '100%',
+                    background: '#1CA0FF',
+                    width: `${(roomState.timerSeconds / 15) * 100}%`,
+                    transition: 'width 1s linear'
+                  }}
+                />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 0.5rem' }}>
+                <span style={{ color: '#1CA0FF', fontFamily: 'MBCorpoSTitle', fontSize: '1.15rem', fontWeight: 'bold' }}>
+                  FRAGE {roomState.currentQuestionIndex + 1} VON {roomState.totalQuestions}
+                </span>
+                <span style={{ color: '#000000', fontFamily: 'MBCorpoSTitle', fontSize: '1.15rem', fontWeight: 'bold' }}>
+                  {roomState.timerSeconds}S
+                </span>
+              </div>
+            </div>
+
             {/* Top Logo */}
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
-              <img src="/logo.svg" alt="Mercedes-Benz Logo" style={{ height: '70px' }} />
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.25rem' }}>
+              <img src="/logo.svg" alt="Mercedes-Benz Logo" style={{ height: '65px' }} />
             </div>
 
             {/* Question Text Centered */}
-            <h2 style={{ fontSize: '1.7rem', textAlign: 'center', marginBottom: '2rem', lineHeight: '1.3', fontFamily: 'MBCorpoSTitle', color: '#000000', textTransform: 'uppercase' }}>
+            <h2 style={{ fontSize: '1.6rem', textAlign: 'center', marginBottom: '1.5rem', lineHeight: '1.3', fontFamily: 'MBCorpoSTitle', color: '#000000', textTransform: 'uppercase' }}>
               {roomState.currentQuestion?.questionText}
             </h2>
 
             {/* Option Buttons (Matching Frame 2 Layout) */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '2rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
               {roomState.currentQuestion?.options.map((opt, idx) => {
                 const isSelected = selectedOption === idx;
                 const letter = String.fromCharCode(65 + idx);
@@ -278,23 +300,6 @@ export default function MobileView({ navigate }) {
                   </div>
                 );
               })}
-            </div>
-
-            {/* Bottom Progress Counter (e.g. "1 von 10" matching designer slide) */}
-            <div style={{ textAlign: 'center', marginTop: 'auto', paddingTop: '1rem' }}>
-              <div style={{ width: '100%', height: '4px', background: '#e5e5e5', marginBottom: '1rem' }}>
-                <div
-                  style={{
-                    height: '100%',
-                    background: '#1CA0FF',
-                    width: `${(roomState.timerSeconds / 15) * 100}%`,
-                    transition: 'width 1s linear'
-                  }}
-                />
-              </div>
-              <p style={{ color: '#1CA0FF', fontFamily: 'MBCorpoSTitle', fontSize: '1.4rem', fontWeight: 'bold' }}>
-                {roomState.currentQuestionIndex + 1} von {roomState.totalQuestions}
-              </p>
             </div>
           </div>
         )}
