@@ -10,7 +10,7 @@ export default function MobileView({ navigate }) {
   const [joined, setJoined] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [roomState, setRoomState] = useState(null);
-  
+
   const [selectedOption, setSelectedOption] = useState(null);
   const [answerSubmitted, setAnswerSubmitted] = useState(false);
   const [lastFeedback, setLastFeedback] = useState(null);
@@ -31,14 +31,14 @@ export default function MobileView({ navigate }) {
       const json = JSON.stringify(data);
       sessionStorage.setItem('mb_quiz_session', json);
       localStorage.setItem('mb_quiz_session', json);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const clearStoredSession = () => {
     try {
       sessionStorage.removeItem('mb_quiz_session');
       localStorage.removeItem('mb_quiz_session');
-    } catch (e) {}
+    } catch (e) { }
   };
 
   // Rejoin attempt logic
@@ -169,7 +169,7 @@ export default function MobileView({ navigate }) {
             </div>
 
             <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', textAlign: 'center', fontFamily: 'MBCorpoSTitle' }}>WILLKOMMEN BEIM QUIZ</h1>
-            <p style={{ textAlign: 'center', color: '#737373', marginBottom: '2.5rem', fontSize: '1.1rem' }}>Gib den Raumcode & deinen Namen ein</p>
+            <p style={{ textAlign: 'center', color: '#737373', marginBottom: '2.5rem', fontSize: '1.1rem' }}>Gib deinen Spitznamen ein</p>
 
             {errorMsg && (
               <div style={{ background: '#737373', color: '#ffffff', padding: '1rem', marginBottom: '1.5rem', fontWeight: 'bold', textAlign: 'center', fontFamily: 'MBCorpoSTitle' }}>
@@ -381,20 +381,8 @@ export default function MobileView({ navigate }) {
                 STARKE LEISTUNG!
               </h1>
               <p style={{ fontSize: '1.2rem', color: '#000000', marginBottom: '1.5rem', fontFamily: 'MBCorpoSText', lineHeight: '1.4' }}>
-                Hol dir jetzt dein Giveaway am Schalter ab.
+                Zeige deinen Bildschirm am Stand vor und erhalte dein free Giveaway
               </p>
-
-              {/* Hostess Claimed Toggle */}
-              <div style={{ borderTop: '2px solid #e5e5e5', paddingTop: '1.25rem', marginTop: '1rem' }}>
-                <p style={{ fontSize: '0.85rem', color: '#737373', marginBottom: '0.75rem', fontFamily: 'MBCorpoSTitle' }}>NUR FÜR DIE HOSTESS AM SCHALTER:</p>
-                <button
-                  className="mb-btn"
-                  style={{ width: '100%', background: giveawayClaimed ? '#737373' : '#1CA0FF', fontSize: '1rem', padding: '0.8rem' }}
-                  onClick={() => setGiveawayClaimed(!giveawayClaimed)}
-                >
-                  {giveawayClaimed ? 'GIVEAWAY EINGELÖST' : 'ALS EINGELÖST MARKIEREN'}
-                </button>
-              </div>
             </div>
           </div>
         )}
