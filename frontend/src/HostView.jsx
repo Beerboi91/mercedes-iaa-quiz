@@ -209,9 +209,6 @@ export default function HostView({ navigate }) {
               {/* Clean Blue QR Code directly on white background without box */}
               <div style={{ marginBottom: '2.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <QRCodeSVG value={mobileUrl} fgColor="#1CA0FF" bgColor="transparent" size={280} />
-                <p style={{ color: '#000000', fontWeight: 'bold', marginTop: '1.5rem', fontSize: '1.3rem', fontFamily: 'MBCorpoSTitle' }}>
-                  {window.location.host}/mobile?room={roomState.roomId}
-                </p>
               </div>
 
               {/* Player Count & Start Button */}

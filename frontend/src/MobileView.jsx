@@ -396,18 +396,6 @@ export default function MobileView({ navigate }) {
                 </button>
               </div>
             </div>
-
-            {/* Bottom Button matching Frame 4 - Starke Leistung.png */}
-            <button
-              className="mb-btn"
-              style={{ width: '100%', padding: '1.2rem', fontSize: '1.3rem', marginTop: '1rem' }}
-              onClick={() => {
-                clearStoredSession();
-                window.location.reload();
-              }}
-            >
-              ZURÜCK ZUM START
-            </button>
           </div>
         )}
       </div>
