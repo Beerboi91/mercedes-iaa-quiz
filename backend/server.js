@@ -148,13 +148,6 @@ function startFeedbackTimer(room) {
 
   const totalQuestions = room.mode === 'express' ? 5 : 10;
   
-  // If last question, skip cooldown timer and go straight to final leaderboard
-  if (room.currentQuestionIndex + 1 >= totalQuestions) {
-    room.status = 'leaderboard';
-    broadcastRoomState(room.roomId);
-    return;
-  }
-
   room.status = 'feedback';
   room.feedbackTimerSeconds = 5;
   broadcastRoomState(room.roomId);
