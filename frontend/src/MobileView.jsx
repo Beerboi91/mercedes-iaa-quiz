@@ -159,13 +159,6 @@ export default function MobileView({ navigate }) {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#ffffff' }}>
-      {/* Header */}
-      <div className="slide-header" style={{ padding: '1rem 1.5rem', borderBottom: '2px solid #000000' }}>
-        <div>
-          <span style={{ fontFamily: 'MBCorpoSTitle', fontWeight: 'bold', fontSize: '1rem' }}>MERCEDES-BENZ QUIZ</span>
-        </div>
-        <img src="/logo.svg" alt="Mercedes-Benz Logo" style={{ height: '40px' }} />
-      </div>
 
       <div style={{ padding: '1.5rem 1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
         {/* SCREEN 1: Nickname Input / Room Code */}
