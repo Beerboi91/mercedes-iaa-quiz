@@ -361,51 +361,114 @@ export default function HostView({ navigate }) {
             </div>
           )}
 
-          {/* SCREEN 5: End Ranking Slide (`slide_end.png` with official Pokal.svg) */}
+          {/* SCREEN 5: End Ranking Slide matching designer mockup */}
           {roomState.status === 'leaderboard' && (
-            <div className="slide-container">
-              {/* Pokal SVG Graphic */}
-              <div style={{ marginBottom: '1.5rem' }}>
-                <img src="/Pokal.svg" alt="Mercedes-Benz Pokal" style={{ height: '160px' }} />
-              </div>
+            <div className="slide-container" style={{ position: 'relative', width: '100%', height: '100%', padding: '4rem 6rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: '#FFFFFF', overflow: 'hidden' }}>
+              
+              {/* Blue Wave Background Line */}
+              <img 
+                src="/Quiz_Linie 1.png" 
+                alt="Line" 
+                style={{ 
+                  position: 'absolute', 
+                  bottom: 0, 
+                  left: 0, 
+                  width: '100%', 
+                  pointerEvents: 'none', 
+                  zIndex: 1 
+                }} 
+              />
 
-              <h1 style={{ fontSize: '3.8rem', marginBottom: '0.5rem', color: '#000000', fontFamily: 'MBCorpoSTitle' }}>STARKE LEISTUNG!</h1>
-              <h2 style={{ fontSize: '1.8rem', marginBottom: '0.25rem', color: '#000000', fontFamily: 'MBCorpoSTitle' }}>
-                Hol dir jetzt dein Giveaway
-              </h2>
-              <h2 style={{ fontSize: '1.8rem', marginBottom: '2.5rem', color: '#000000', fontFamily: 'MBCorpoSTitle' }}>
-                Schalter ab.
-              </h2>
+              {/* Content Grid: Left side text/rankings, Right side trophy */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', alignItems: 'center', width: '100%', zIndex: 2 }}>
+                
+                {/* Left Column: Title & Player Rows */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.8rem' }}>
+                  <h1 style={{ 
+                    fontSize: '4.5rem', 
+                    fontWeight: '900', 
+                    letterSpacing: '0.05em', 
+                    color: '#000000', 
+                    margin: 0, 
+                    fontFamily: 'MBCorpoSTitle, sans-serif', 
+                    textTransform: 'uppercase' 
+                  }}>
+                    RANKING
+                  </h1>
 
-              <div style={{ width: '100%', maxWidth: '750px', display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
-                {sortedPlayers.map((p, idx) => (
-                  <div
-                    key={p.id}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      padding: '1.25rem 2rem',
-                      background: idx === 0 ? '#1CA0FF' : idx === 1 ? '#000000' : '#737373',
-                      color: '#ffffff',
-                      fontFamily: 'MBCorpoSTitle',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold'
-                    }}
-                  >
-                    <span>
-                      {idx + 1}. PLATZ - {p.nickname}
-                    </span>
-                    <span>{p.score} PKT</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '0.5rem' }}>
+                    {sortedPlayers.map((p, idx) => (
+                      <div key={p.id || idx} style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+                        {/* Blue Square Box with White Rank Number */}
+                        <div style={{ 
+                          width: '44px', 
+                          height: '44px', 
+                          backgroundColor: '#1CA0FF', 
+                          color: '#FFFFFF', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center', 
+                          fontSize: '1.6rem', 
+                          fontWeight: 'bold', 
+                          fontFamily: 'MBCorpoSTitle, sans-serif' 
+                        }}>
+                          {idx + 1}
+                        </div>
+
+                        {/* Player Name and Points */}
+                        <span style={{ 
+                          fontSize: '2.2rem', 
+                          fontWeight: 'bold', 
+                          color: '#000000', 
+                          fontFamily: 'MBCorpoSTitle, sans-serif' 
+                        }}>
+                          {p.nickname}: {p.score} Punkte
+                        </span>
+                      </div>
+                    ))}
+
+                    {/* Fallback empty rows if fewer than 4 players */}
+                    {Array.from({ length: Math.max(0, 4 - sortedPlayers.length) }).map((_, idx) => {
+                      const rank = sortedPlayers.length + idx + 1;
+                      return (
+                        <div key={`empty-${rank}`} style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', opacity: 0.4 }}>
+                          <div style={{ 
+                            width: '44px', 
+                            height: '44px', 
+                            backgroundColor: '#1CA0FF', 
+                            color: '#FFFFFF', 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'center', 
+                            fontSize: '1.6rem', 
+                            fontWeight: 'bold', 
+                            fontFamily: 'MBCorpoSTitle, sans-serif' 
+                          }}>
+                            {rank}
+                          </div>
+                          <span style={{ 
+                            fontSize: '2.2rem', 
+                            fontWeight: 'bold', 
+                            color: '#000000', 
+                            fontFamily: 'MBCorpoSTitle, sans-serif' 
+                          }}>
+                            Spieler {rank}: 0 Punkte
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
-                ))}
-              </div>
+                </div>
 
-              {/* Bottom Right Button matching slide_end.png */}
-              <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-                <button className="mb-btn" style={{ padding: '1.2rem 3rem', fontSize: '1.5rem' }} onClick={() => { setRoomState(null); setStep('title'); }}>
-                  ZURÜCK ZUM START
-                </button>
+                {/* Right Column: Trophy */}
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <img 
+                    src="/Pokal.svg" 
+                    alt="Pokal" 
+                    style={{ width: '380px', maxHeight: '480px', objectFit: 'contain' }} 
+                  />
+                </div>
+
               </div>
             </div>
           )}
