@@ -373,7 +373,10 @@ export default function HostView({ navigate }) {
                   position: 'absolute', 
                   bottom: 0, 
                   left: 0, 
-                  width: '100%', 
+                  width: '100vw', 
+                  height: 'auto', 
+                  maxHeight: '45vh', 
+                  objectFit: 'fill', 
                   pointerEvents: 'none', 
                   zIndex: 1 
                 }} 
