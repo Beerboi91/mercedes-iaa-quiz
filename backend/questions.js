@@ -2,121 +2,191 @@ export const QUESTIONS = [
   {
     id: 1,
     question: {
-      de: "Welches Modell leitete die moderne Ära der Elektrofahrzeuge bei Mercedes-Benz ein?",
-      en: "Which model introduced the modern era of electric vehicles at Mercedes-Benz?"
+      de: "Womit begann 1972 die Geschichte der Mercedes-Benz Trucks Tauschteile?",
+      en: "How did the history of Mercedes-Benz Trucks remanufactured parts begin in 1972?"
     },
     options: {
-      de: ["EQA", "EQC", "EQS", "EQE"],
-      en: ["EQA", "EQC", "EQS", "EQE"]
-    },
-    correctAnswerIndex: 1
-  },
-  {
-    id: 2,
-    question: {
-      de: "Wie heißt das revolutionäre Infotainmentsystem von Mercedes-Benz mit MBUX Hyperscreen?",
-      en: "What is the name of the revolutionary Mercedes-Benz infotainment system featuring the MBUX Hyperscreen?"
-    },
-    options: {
-      de: ["COMAND", "MB OS", "MBUX", "DrivePilot"],
-      en: ["COMAND", "MB OS", "MBUX", "DrivePilot"]
+      de: ["Mit einer Hochvolt-Batterie", "Mit einem Luftfilter", "Mit einem Getriebe", "Mit einer Vorderachse"],
+      en: ["With a high-voltage battery", "With an air filter", "With a transmission", "With a front axle"]
     },
     correctAnswerIndex: 2
   },
   {
-    id: 3,
+    id: 2,
     question: {
-      de: "Welche Reichweite erzielte das Technologiefahrzeug Vision EQXX mit einer einzigen Ladung?",
-      en: "What range did the Vision EQXX technology vehicle achieve on a single battery charge?"
+      de: "Was machte die Mercedes ServiceCard ab 2000 möglich?",
+      en: "What did the Mercedes ServiceCard make possible from 2000 onwards?"
     },
     options: {
-      de: ["Rund 750 km", "Über 1.000 km", "Etwa 500 km", "Genau 850 km"],
-      en: ["Around 750 km", "Over 1,000 km", "About 500 km", "Exactly 850 km"]
+      de: [
+        "Werkstattleistungen europaweit bargeldlos abzuwickeln",
+        "Den Truck per Karte zu starten",
+        "Kaffee-Stempel an Tankstellen zu sammeln",
+        "Fahrzeugdaten während der Fahrt automatisch auszuwerten"
+      ],
+      en: [
+        "Cashless workshop services across Europe",
+        "Starting the truck using a card",
+        "Collecting coffee stamps at gas stations",
+        "Automatically evaluating vehicle data while driving"
+      ]
+    },
+    correctAnswerIndex: 0
+  },
+  {
+    id: 3,
+    question: {
+      de: "Was ermöglichte der mobile Kalkulationsrechner ab 1979 direkt im Autohaus?",
+      en: "What did the mobile calculation calculator enable directly at the dealership from 1979?"
+    },
+    options: {
+      de: [
+        "Eine automatische Schadensmeldung",
+        "Individuelle Finanzierungsangebote",
+        "Die digitale Bestellung von Ersatzteilen",
+        "Die live Abrechnung des Verkaufsgesprächs"
+      ],
+      en: [
+        "Automatic damage reporting",
+        "Individual financing offers",
+        "Digital ordering of spare parts",
+        "Live settlement of sales talks"
+      ]
     },
     correctAnswerIndex: 1
   },
   {
     id: 4,
     question: {
-      de: "In welchem Jahr ließ Carl Benz das erste Automobil mit Verbrennungsmotor patentieren?",
-      en: "In which year did Carl Benz patent the first motorcar with a gas engine?"
+      de: "In welchem Jahr entstand der Einheitsstandort Europa, die Grundlage für eines der dichtesten Servicenetze Europas?",
+      en: "In which year was the unified European location established, creating one of Europe's densest service networks?"
     },
     options: {
-      de: ["1901", "1926", "1899", "1886"],
-      en: ["1901", "1926", "1899", "1886"]
-    },
-    correctAnswerIndex: 3
-  },
-  {
-    id: 5,
-    question: {
-      de: "Welches autonome Fahrsystem von Mercedes-Benz ist für Level 3 nach SAE nachgewiesen?",
-      en: "Which Mercedes-Benz autonomous driving system is certified for SAE Level 3?"
-    },
-    options: {
-      de: ["PARK PILOT", "DRIVE PILOT", "CRUISE CONTROL", "ASSIST PILOT"],
-      en: ["PARK PILOT", "DRIVE PILOT", "CRUISE CONTROL", "ASSIST PILOT"]
+      de: ["1980", "1989", "1997", "2000"],
+      en: ["1980", "1989", "1997", "2000"]
     },
     correctAnswerIndex: 1
   },
   {
-    id: 6,
+    id: 5,
     question: {
-      de: "Was symbolisieren die drei Zacken des weltbekannten Mercedes-Benz Sterns?",
-      en: "What do the three points of the iconic Mercedes-Benz star represent?"
+      de: "Wofür steht Mercedes-Benz CharterWay?",
+      en: "What does Mercedes-Benz CharterWay stand for?"
     },
     options: {
-      de: ["Qualität, Luxus, Sicherheit", "Vergangenheit, Gegenwart, Zukunft", "Land, Wasser, Luft", "Design, Motor, Komfort"],
-      en: ["Quality, Luxury, Safety", "Past, Present, Future", "Land, Water, Air", "Design, Engine, Comfort"]
-    },
-    correctAnswerIndex: 2
-  },
-  {
-    id: 7,
-    question: {
-      de: "Welche Marke verkörpert den perfekten Ausdruck von modernem Luxus und Höchstleistung bei Mercedes-Benz?",
-      en: "Which sub-brand represents the ultimate performance and sportiness at Mercedes-Benz?"
-    },
-    options: {
-      de: ["Mercedes-AMG", "Mercedes-Maybach", "EQ", "G-Class"],
-      en: ["Mercedes-AMG", "Mercedes-Maybach", "EQ", "G-Class"]
+      de: [
+        "Für flexible Mietlösungen",
+        "Für eine digitale Routenplanung durch ganz Europa",
+        "Für ein Pausen-Sportprogramm für Fahrer",
+        "Für einen Limousinenservice"
+      ],
+      en: [
+        "Flexible rental solutions",
+        "Digital route planning across Europe",
+        "Rest break sports program for drivers",
+        "Limousine service"
+      ]
     },
     correctAnswerIndex: 0
   },
   {
-    id: 8,
+    id: 6,
     question: {
-      de: "Welche High-End-Submarke von Mercedes-Benz steht für ultimativen exklusiven Luxus?",
-      en: "Which top-tier Mercedes-Benz sub-brand is known for ultimate exclusive luxury?"
+      de: "Was sorgt beim Actros ab 1996 für mehr Planbarkeit im Alltag?",
+      en: "What has provided greater predictability in daily operations for the Actros since 1996?"
     },
     options: {
-      de: ["Mercedes-AMG", "EQ", "Mercedes-Maybach", "Smart"],
-      en: ["Mercedes-AMG", "EQ", "Mercedes-Maybach", "Smart"]
+      de: [
+        "Eine Sprachassistenz",
+        "Ein Tank, der sich selbst wieder auffüllt",
+        "Ein von Mercedes-Benz Trucks bereitgestellter Ersatzfahrer",
+        "Serviceverträge"
+      ],
+      en: [
+        "Voice assistant",
+        "Self-refilling fuel tank",
+        "Replacement driver provided by Mercedes-Benz Trucks",
+        "Service contracts"
+      ]
+    },
+    correctAnswerIndex: 3
+  },
+  {
+    id: 7,
+    question: {
+      de: "Was war das Besondere an Fleetboard, als es 1999 startete?",
+      en: "What was special about Fleetboard when it launched in 1999?"
+    },
+    options: {
+      de: [
+        "Jeder Truck bekam eine eigene E-Mail-Adresse",
+        "Planung ging jetzt online und Fahrzeugdaten wurden in Echtzeit sichtbar",
+        "Autonomes Fahren wurde eingeführt",
+        "Fahrer konnten damit unterwegs Fernsehprogramme empfangen"
+      ],
+      en: [
+        "Every truck received its own email address",
+        "Online planning and real-time vehicle data visibility",
+        "Autonomous driving was introduced",
+        "Drivers could watch TV channels on the road"
+      ]
+    },
+    correctAnswerIndex: 1
+  },
+  {
+    id: 8,
+    question: {
+      de: "Was passiert bei Mercedes-Benz Trucks Uptime, bevor ein Lkw ungeplant stehen bleibt?",
+      en: "What happens with Mercedes-Benz Trucks Uptime before a truck unexpectedly breaks down?"
+    },
+    options: {
+      de: [
+        "Ein Ersatzfahrzeug wird automatisch bestellt",
+        "Die Route wird direkt an die Polizei übermittelt",
+        "Fehler werden in Echtzeit erkannt und Werkstattbesuche proaktiv geplant",
+        "Der Fahrer erhält vorsorglich einen neuen Servicevertrag"
+      ],
+      en: [
+        "A replacement vehicle is automatically ordered",
+        "The route is transmitted directly to the police",
+        "Faults are detected in real time and workshop visits are proactively planned",
+        "The driver receives a new service contract as a precaution"
+      ]
     },
     correctAnswerIndex: 2
   },
   {
     id: 9,
     question: {
-      de: "Welcher ikonische Geländewagen feierte 2024 seine Premiere als vollelektrische G 580 mit EQ Technologie?",
-      en: "Which iconic off-roader premiered as the fully electric G 580 with EQ technology in 2024?"
+      de: "Was bietet TruckCharge aus einer Hand?",
+      en: "What does TruckCharge offer from a single source?"
     },
     options: {
-      de: ["GLE", "GLS", "G-Klasse", "GLC"],
-      en: ["GLE", "GLS", "G-Class", "GLC"]
+      de: [
+        "Beratung, Ladeinfrastruktur und zuverlässigen Betrieb",
+        "Finanzierung und Versicherung",
+        "Ersatzteile, Reifen und Fahrerbekleidung",
+        "Getränkekühlschrank, Snack-Flatrate und ein Massagesitz"
+      ],
+      en: [
+        "Consulting, charging infrastructure, and reliable operation",
+        "Financing and insurance",
+        "Spare parts, tires, and driver apparel",
+        "Beverage fridge, snack flat rate, and a massage seat"
+      ]
     },
-    correctAnswerIndex: 2
+    correctAnswerIndex: 0
   },
   {
     id: 10,
     question: {
-      de: "Wie heißt das eigene Betriebssystem, das Mercedes-Benz für seine zukünftige Fahrzeugarchitektur entwickelt?",
-      en: "What is the name of the dedicated operating system developed by Mercedes-Benz for its future vehicle architecture?"
+      de: "Auf wie viele Teile bietet My PartsHub seit 2025 rund um die Uhr Zugriff?",
+      en: "How many parts does My PartsHub provide round-the-clock access to since 2025?"
     },
     options: {
-      de: ["BenzOS", "MB.OS", "DriveOS", "EQ-OS"],
-      en: ["BenzOS", "MB.OS", "DriveOS", "EQ-OS"]
+      de: ["Über 30.000", "Über 100.000", "Über 200.000", "Über 300.000"],
+      en: ["Over 30,000", "Over 100,000", "Over 200,000", "Over 300,000"]
     },
-    correctAnswerIndex: 1
+    correctAnswerIndex: 3
   }
 ];
