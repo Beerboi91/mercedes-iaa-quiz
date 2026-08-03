@@ -304,13 +304,27 @@ export default function HostView({ navigate }) {
             <div className="slide-container" style={{ justifyContent: 'flex-start', paddingTop: '2rem', position: 'relative' }}>
               {/* Prominent Overlay Graphic with Circular Countdown */}
               <div className="mb-timer-overlay">
-                <div style={{ background: '#000000', border: '3px solid #1CA0FF', padding: '3rem 4rem', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
-                  <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', letterSpacing: '2px', color: '#ffffff', fontFamily: 'MBCorpoSTitle' }}>
-                    NÄCHSTE FRAGE STARTET IN
+                <div style={{ background: '#000000', border: '3px solid #1CA0FF', padding: '3rem 4rem', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 15px 40px rgba(0,0,0,0.6)', maxWidth: '850px', width: '90%' }}>
+                  <h2 style={{ fontSize: '1.4rem', marginBottom: '1rem', letterSpacing: '2px', color: '#737373', fontFamily: 'MBCorpoSTitle', textTransform: 'uppercase', fontWeight: 'bold' }}>
+                    RICHTIGE ANTWORT:
                   </h2>
 
+                  {/* Prominent Answer Card */}
+                  <div style={{ background: '#1CA0FF', color: '#ffffff', width: '100%', padding: '1.5rem 2rem', display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem', borderRadius: '0px' }}>
+                    <div style={{ background: '#ffffff', color: '#1CA0FF', fontSize: '2.2rem', fontWeight: 'bold', width: '55px', height: '55px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'MBCorpoSTitle', flexShrink: 0 }}>
+                      {String.fromCharCode(65 + (roomState.currentQuestion?.correctAnswerIndex || 0))}
+                    </div>
+                    <span style={{ fontSize: '2.2rem', fontWeight: 'bold', fontFamily: 'MBCorpoSTitle', lineHeight: '1.2' }}>
+                      {roomState.currentQuestion?.options[roomState.currentQuestion.correctAnswerIndex]}
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: '#ffffff', fontFamily: 'MBCorpoSTitle', letterSpacing: '1px' }}>
+                    NÄCHSTE FRAGE IN
+                  </h3>
+
                   {/* Circular SVG Countdown Ring */}
-                  <div className="mb-circular-timer-container">
+                  <div className="mb-circular-timer-container" style={{ marginBottom: '1.5rem' }}>
                     <svg className="mb-circular-svg" viewBox="0 0 160 160">
                       <circle className="mb-circular-bg-ring" cx="80" cy="80" r="70" />
                       <circle
@@ -327,12 +341,8 @@ export default function HostView({ navigate }) {
                     <div className="mb-circular-number">{roomState.feedbackTimerSeconds}</div>
                   </div>
 
-                  <p style={{ color: '#1CA0FF', fontFamily: 'MBCorpoSTitle', fontSize: '1.2rem', marginBottom: '1.5rem', fontWeight: 'bold' }}>
-                    RICHTIGE ANTWORT: {roomState.currentQuestion?.options[roomState.currentQuestion.correctAnswerIndex]}
-                  </p>
-
-                  <button className="mb-btn" style={{ padding: '0.8rem 2rem', fontSize: '1.1rem' }} onClick={handleNextQuestion}>
-                    JETZT WEITERLEITEN
+                  <button className="mb-btn" style={{ padding: '0.9rem 2.5rem', fontSize: '1.2rem' }} onClick={handleNextQuestion}>
+                    DIREKT WEITER (10S)
                   </button>
                 </div>
               </div>

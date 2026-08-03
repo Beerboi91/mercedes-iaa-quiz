@@ -332,6 +332,18 @@ export default function MobileView({ navigate }) {
                   <p style={{ fontSize: '1.2rem', fontFamily: 'MBCorpoSTitle' }}>0 PUNKTE</p>
                 </div>
               )}
+
+              {/* Prominent Correct Answer Card on Mobile */}
+              {roomState.currentQuestion && (
+                <div style={{ background: '#f5f5f5', borderLeft: '5px solid #1CA0FF', padding: '1rem', marginBottom: '1.5rem', textAlign: 'left' }}>
+                  <div style={{ fontSize: '0.85rem', color: '#737373', fontFamily: 'MBCorpoSTitle', fontWeight: 'bold', marginBottom: '0.3rem' }}>
+                    RICHTIGE ANTWORT:
+                  </div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#000000', fontFamily: 'MBCorpoSTitle' }}>
+                    {String.fromCharCode(65 + roomState.currentQuestion.correctAnswerIndex)}: {roomState.currentQuestion.options[roomState.currentQuestion.correctAnswerIndex]}
+                  </div>
+                </div>
+              )}
             </div>
 
             <p style={{ color: '#737373', fontFamily: 'MBCorpoSTitle', fontSize: '1.1rem' }}>
