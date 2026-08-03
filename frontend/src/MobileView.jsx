@@ -218,7 +218,7 @@ export default function MobileView({ navigate }) {
               Schau auf den Haupt-Bildschirm... Das Quiz startet in Kürze!
             </p>
             <div style={{ background: '#1CA0FF', color: '#ffffff', padding: '1rem 1.75rem', fontFamily: 'MBCorpoSTitle', fontSize: '1.2rem', fontWeight: 'bold', display: 'inline-block', marginBottom: '2rem' }}>
-              RAUM: {roomState.roomId} ({roomState.playerCount}/{roomState.maxPlayers} SPIELER)
+              WARTEN ({roomState.playerCount}/{roomState.maxPlayers} SPIELER)
             </div>
 
             <div>
