@@ -290,34 +290,34 @@ export default function HostView({ navigate }) {
             </div>
           )}
 
-          {/* SCREEN 4: Question Resolution Slide with Prominent Overlay Circular Timer */}
+          {/* SCREEN 4: Question Resolution Slide with Prominent Minimalist White Overlay Circular Timer */}
           {roomState.status === 'feedback' && (
             <div className="slide-container" style={{ justifyContent: 'flex-start', paddingTop: '2rem', position: 'relative' }}>
-              {/* Prominent Overlay Graphic with Circular Countdown */}
-              <div className="mb-timer-overlay">
-                <div style={{ background: '#000000', border: '3px solid #1CA0FF', padding: '3.5rem 4.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 20px 50px rgba(0,0,0,0.7)', maxWidth: '900px', width: '92%' }}>
-                  <h2 style={{ fontSize: '1.5rem', marginBottom: '1.2rem', letterSpacing: '3px', color: '#1CA0FF', fontFamily: 'MBCorpoSTitle', textTransform: 'uppercase', fontWeight: 'bold' }}>
+              {/* Minimalist White Overlay Modal */}
+              <div className="mb-timer-overlay" style={{ background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)' }}>
+                <div style={{ background: '#ffffff', border: '2px solid #000000', padding: '3rem 4rem', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.15)', maxWidth: '850px', width: '90%' }}>
+                  <h2 style={{ fontSize: '1.3rem', marginBottom: '1.2rem', letterSpacing: '2px', color: '#1CA0FF', fontFamily: 'MBCorpoSTitle', textTransform: 'uppercase', fontWeight: 'bold' }}>
                     RICHTIGE ANTWORT:
                   </h2>
 
-                  {/* High-Impact Prominent Answer Card */}
-                  <div style={{ background: '#1CA0FF', color: '#ffffff', width: '100%', padding: '1.8rem 2.5rem', display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '2.2rem', borderRadius: '0px', boxShadow: '0 6px 20px rgba(28, 160, 255, 0.4)' }}>
-                    <div style={{ background: '#ffffff', color: '#1CA0FF', fontSize: '2.6rem', fontWeight: 'bold', width: '65px', height: '65px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'MBCorpoSTitle', flexShrink: 0 }}>
+                  {/* High-Impact Answer Card */}
+                  <div style={{ background: '#1CA0FF', color: '#ffffff', width: '100%', padding: '1.5rem 2.2rem', display: 'flex', alignItems: 'center', gap: '1.8rem', marginBottom: '2rem', borderRadius: '0px' }}>
+                    <div style={{ background: '#ffffff', color: '#1CA0FF', fontSize: '2.4rem', fontWeight: 'bold', width: '60px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'MBCorpoSTitle', flexShrink: 0 }}>
                       {String.fromCharCode(65 + (roomState.currentQuestion?.correctAnswerIndex || 0))}
                     </div>
-                    <span style={{ fontSize: '2.6rem', fontWeight: 'bold', fontFamily: 'MBCorpoSTitle', lineHeight: '1.2' }}>
+                    <span style={{ fontSize: '2.2rem', fontWeight: 'bold', fontFamily: 'MBCorpoSTitle', lineHeight: '1.2' }}>
                       {roomState.currentQuestion?.options[roomState.currentQuestion.correctAnswerIndex]}
                     </span>
                   </div>
 
-                  <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: '#ffffff', fontFamily: 'MBCorpoSTitle', letterSpacing: '1px' }}>
+                  <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#737373', fontFamily: 'MBCorpoSTitle', letterSpacing: '1px' }}>
                     NÄCHSTE FRAGE IN
                   </h3>
 
                   {/* Circular SVG Countdown Ring */}
-                  <div className="mb-circular-timer-container" style={{ marginBottom: '1.5rem' }}>
+                  <div className="mb-circular-timer-container" style={{ marginBottom: '1.5rem', width: '140px', height: '140px' }}>
                     <svg className="mb-circular-svg" viewBox="0 0 160 160">
-                      <circle className="mb-circular-bg-ring" cx="80" cy="80" r="70" />
+                      <circle className="mb-circular-bg-ring" cx="80" cy="80" r="70" style={{ stroke: '#e5e5e5' }} />
                       <circle
                         className="mb-circular-progress-ring"
                         cx="80"
@@ -325,14 +325,15 @@ export default function HostView({ navigate }) {
                         r="70"
                         style={{
                           strokeDasharray: 439.82,
-                          strokeDashoffset: 439.82 * (1 - (roomState.feedbackTimerSeconds / 5))
+                          strokeDashoffset: 439.82 * (1 - (roomState.feedbackTimerSeconds / 5)),
+                          stroke: '#1CA0FF'
                         }}
                       />
                     </svg>
-                    <div className="mb-circular-number">{roomState.feedbackTimerSeconds}</div>
+                    <div className="mb-circular-number" style={{ color: '#000000', fontSize: '3.2rem' }}>{roomState.feedbackTimerSeconds}</div>
                   </div>
 
-                  <button className="mb-btn" style={{ padding: '0.9rem 2.5rem', fontSize: '1.2rem' }} onClick={handleNextQuestion}>
+                  <button className="mb-btn" style={{ padding: '0.8rem 2.2rem', fontSize: '1.1rem' }} onClick={handleNextQuestion}>
                     DIREKT WEITER (5S)
                   </button>
                 </div>
