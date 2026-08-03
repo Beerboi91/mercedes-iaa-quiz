@@ -375,24 +375,7 @@ export default function HostView({ navigate }) {
           {roomState.status === 'leaderboard' && (
             <div className="slide-container" style={{ position: 'relative', width: '100%', height: '100%', padding: '4rem 6rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: '#FFFFFF', overflow: 'hidden' }}>
               
-              {/* Blue Wave Background Line */}
-              <img 
-                src="/Quiz_Linie 1.png" 
-                alt="Line" 
-                style={{ 
-                  position: 'absolute', 
-                  bottom: 0, 
-                  left: 0, 
-                  width: '100vw', 
-                  height: 'auto', 
-                  maxHeight: '45vh', 
-                  objectFit: 'fill', 
-                  pointerEvents: 'none', 
-                  zIndex: 1 
-                }} 
-              />
-
-              {/* Content Grid: Left side text/rankings, Right side trophy */}
+              {/* Content Grid: Left side text/rankings & Reset button, Right side trophy */}
               <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', alignItems: 'center', width: '100%', zIndex: 2 }}>
                 
                 {/* Left Column: Title & Player Rows */}
@@ -470,6 +453,23 @@ export default function HostView({ navigate }) {
                         </div>
                       );
                     })}
+                  </div>
+
+                  {/* NÄCHSTE RUNDE Button to Reset for New Game */}
+                  <div style={{ marginTop: '2rem' }}>
+                    <button
+                      className="mb-btn"
+                      style={{ padding: '1.2rem 3rem', fontSize: '1.5rem', fontWeight: 'bold' }}
+                      onClick={() => {
+                        if (roomState?.roomId) {
+                          socket.emit('reset_room', { roomId: roomState.roomId });
+                        }
+                        setRoomState(null);
+                        setStep('title');
+                      }}
+                    >
+                      NÄCHSTE RUNDE &rarr;
+                    </button>
                   </div>
                 </div>
 
