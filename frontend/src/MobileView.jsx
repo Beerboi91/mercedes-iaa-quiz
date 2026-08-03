@@ -186,18 +186,6 @@ export default function MobileView({ navigate }) {
 
             <form onSubmit={handleJoin} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div>
-                <label style={{ display: 'block', fontFamily: 'MBCorpoSTitle', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.95rem' }}>RAUMCODE:</label>
-                <input
-                  type="text"
-                  placeholder="z.B. ROOM_1234"
-                  value={roomId}
-                  onChange={(e) => setRoomId(e.target.value)}
-                  style={{ width: '100%', padding: '1rem', fontSize: '1.2rem', border: '2px solid #000000', borderRadius: '0px', fontFamily: 'MBCorpoSTitle' }}
-                  required
-                />
-              </div>
-
-              <div>
                 <label style={{ display: 'block', fontFamily: 'MBCorpoSTitle', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.95rem' }}>SPITZNAME / NICKNAME:</label>
                 <input
                   type="text"
@@ -206,6 +194,7 @@ export default function MobileView({ navigate }) {
                   onChange={(e) => setNickname(e.target.value)}
                   maxLength={15}
                   style={{ width: '100%', padding: '1rem', fontSize: '1.2rem', border: '2px solid #000000', borderRadius: '0px', fontFamily: 'MBCorpoSText' }}
+                  autoFocus
                   required
                 />
               </div>
