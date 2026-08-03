@@ -372,35 +372,55 @@ export default function MobileView({ navigate }) {
             </div>
 
             <div style={{ margin: 'auto 0' }}>
-              {/* Pokal SVG Container */}
-              <div style={{ position: 'relative', display: 'inline-block', marginBottom: '1.5rem' }}>
-                <img src="/Pokal.svg" alt="Trophy" style={{ height: '140px' }} />
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '25%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    fontFamily: 'MBCorpoSTitle',
-                    fontSize: '2rem',
-                    fontWeight: 'bold',
-                    color: '#000000'
-                  }}
-                >
-                  {(() => {
-                    const sorted = roomState?.players ? [...roomState.players].sort((a, b) => b.score - a.score) : [];
-                    const rank = sorted.findIndex(p => p.id === socket.id) + 1;
-                    return rank > 0 ? rank : 1;
-                  })()}
-                </div>
-              </div>
+              {(() => {
+                const sorted = roomState?.players ? [...roomState.players].sort((a, b) => b.score - a.score) : [];
+                const rankIndex = sorted.findIndex(p => p.id === socket.id);
+                const rank = rankIndex >= 0 ? rankIndex + 1 : 1;
+                const isWinner = rank === 1;
 
-              <h1 style={{ fontSize: '2.6rem', marginBottom: '0.75rem', fontFamily: 'MBCorpoSTitle', color: '#000000', lineHeight: '1.1' }}>
-                STARKE LEISTUNG!
-              </h1>
-              <p style={{ fontSize: '1.2rem', color: '#000000', marginBottom: '1.5rem', fontFamily: 'MBCorpoSText', lineHeight: '1.4' }}>
-                Zeige deinen Bildschirm am Stand vor und erhalte dein free Giveaway
-              </p>
+                return (
+                  <>
+                    {/* Pokal SVG Container */}
+                    <div style={{ position: 'relative', display: 'inline-block', marginBottom: '1.5rem' }}>
+                      <img src="/Pokal.svg" alt="Trophy" style={{ height: '140px' }} />
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '25%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'MBCorpoSTitle',
+                          fontSize: '2rem',
+                          fontWeight: 'bold',
+                          color: '#000000'
+                        }}
+                      >
+                        {rank}
+                      </div>
+                    </div>
+
+                    {isWinner ? (
+                      <>
+                        <h1 style={{ fontSize: '2.6rem', marginBottom: '0.75rem', fontFamily: 'MBCorpoSTitle', color: '#1CA0FF', lineHeight: '1.1' }}>
+                          GEWONNEN!
+                        </h1>
+                        <p style={{ fontSize: '1.2rem', color: '#000000', marginBottom: '1.5rem', fontFamily: 'MBCorpoSText', lineHeight: '1.4' }}>
+                          Zeige deinen Bildschirm am Stand vor und erhalte dein free Giveaway.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <h1 style={{ fontSize: '2.4rem', marginBottom: '0.75rem', fontFamily: 'MBCorpoSTitle', color: '#000000', lineHeight: '1.1' }}>
+                          STARKE LEISTUNG!
+                        </h1>
+                        <p style={{ fontSize: '1.2rem', color: '#737373', marginBottom: '1.5rem', fontFamily: 'MBCorpoSText', lineHeight: '1.4' }}>
+                          Du hast den {rank}. Platz belegt.<br />Vielen Dank fürs Mitmachen!
+                        </p>
+                      </>
+                    )}
+                  </>
+                );
+              })()}
             </div>
           </div>
         )}
