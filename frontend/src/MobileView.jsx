@@ -15,6 +15,7 @@ export default function MobileView({ navigate }) {
   const [answerSubmitted, setAnswerSubmitted] = useState(false);
   const [lastFeedback, setLastFeedback] = useState(null);
   const [giveawayClaimed, setGiveawayClaimed] = useState(false);
+  const [roundEnded, setRoundEnded] = useState(false);
 
   // Helper for session storage
   const getStoredSession = () => {
@@ -87,6 +88,7 @@ export default function MobileView({ navigate }) {
         clearStoredSession();
         setJoined(false);
         setRoomState(null);
+        setRoundEnded(true);
         return;
       }
 
@@ -121,6 +123,7 @@ export default function MobileView({ navigate }) {
       setLastFeedback(null);
       setNickname('');
       setRoomId('');
+      setRoundEnded(true);
       try {
         window.history.replaceState({}, '', '/mobile');
       } catch (e) {}
@@ -179,8 +182,25 @@ export default function MobileView({ navigate }) {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#ffffff' }}>
 
       <div style={{ padding: '1.5rem 1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-        {/* SCREEN 1: Nickname Input / Room Code */}
-        {!joined && (
+        {/* SCREEN 0: Round Ended Notice (If round was reset by host) */}
+        {roundEnded && !joined ? (
+          <div style={{ margin: 'auto 0', textAlign: 'center', padding: '1.5rem 0' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+              <img src="/logo.svg" alt="Mercedes-Benz Logo" style={{ height: '75px' }} />
+            </div>
+
+            <h1 style={{ fontSize: '2.4rem', marginBottom: '1rem', fontFamily: 'MBCorpoSTitle', color: '#000000', lineHeight: '1.2' }}>
+              DIESE RUNDE IST BEENDET!
+            </h1>
+            <p style={{ fontSize: '1.2rem', color: '#555555', marginBottom: '2.5rem', fontFamily: 'MBCorpoSText', lineHeight: '1.5' }}>
+              Scanne den neuen QR-Code auf dem Haupt-Bildschirm, um erneut zu spielen.
+            </p>
+
+            <div style={{ background: '#1CA0FF', color: '#ffffff', padding: '1.2rem 1.8rem', fontFamily: 'MBCorpoSTitle', fontSize: '1.15rem', fontWeight: 'bold', display: 'inline-block' }}>
+              NEUEN QR-CODE SCANNEN
+            </div>
+          </div>
+        ) : !joined && (
           <div style={{ margin: 'auto 0' }}>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
               <img src="/logo.svg" alt="Mercedes-Benz Logo" style={{ height: '70px' }} />
