@@ -362,8 +362,8 @@ io.on('connection', (socket) => {
     player.lastAnswerCorrect = isCorrect;
 
     if (isCorrect) {
-      // Speed-based scoring: 1000 * (1 - (seconds_taken / total_seconds))
-      const points = Math.max(0, Math.round(1000 * (1 - (secondsTaken / QUESTION_TIMEOUT_SECONDS))));
+      // Speed-based scoring: 100 * (1 - (seconds_taken / total_seconds))
+      const points = Math.max(0, Math.round(100 * (1 - (secondsTaken / QUESTION_TIMEOUT_SECONDS))));
       player.lastPointsEarned = points;
       player.score += points;
     } else {
