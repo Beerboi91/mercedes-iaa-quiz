@@ -112,8 +112,26 @@ export default function MobileView({ navigate }) {
       }
     };
 
+    const handleRoomReset = () => {
+      clearStoredSession();
+      setJoined(false);
+      setRoomState(null);
+      setSelectedOption(null);
+      setAnswerSubmitted(false);
+      setLastFeedback(null);
+      setNickname('');
+      setRoomId('');
+      try {
+        window.history.replaceState({}, '', '/mobile');
+      } catch (e) {}
+    };
+
     socket.on('room_state', handleRoomState);
-    return () => socket.off('room_state', handleRoomState);
+    socket.on('room_reset', handleRoomReset);
+    return () => {
+      socket.off('room_state', handleRoomState);
+      socket.off('room_reset', handleRoomReset);
+    };
   }, [answerSubmitted]);
 
   const handleJoin = (e) => {

@@ -123,6 +123,8 @@ function resetRoomToTitle(room) {
   if (room.feedbackTimerInterval) clearInterval(room.feedbackTimerInterval);
   if (room.emptyRoomTimerInterval) clearInterval(room.emptyRoomTimerInterval);
 
+  io.to(room.roomId).emit('room_reset');
+
   room.status = 'title';
   room.players = [];
   room.currentQuestionIndex = 0;
@@ -131,6 +133,7 @@ function resetRoomToTitle(room) {
   room.isPaused = false;
 
   broadcastRoomState(room.roomId);
+  rooms.delete(room.roomId);
 }
 
 function startFeedbackTimer(room) {
