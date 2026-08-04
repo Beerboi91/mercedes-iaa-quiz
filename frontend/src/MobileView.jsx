@@ -356,7 +356,7 @@ export default function MobileView({ navigate }) {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 0.5rem' }}>
                 <span style={{ color: '#1CA0FF', fontFamily: 'MBCorpoSTitle', fontSize: '1.15rem', fontWeight: 'bold' }}>
-                  FRAGE {roomState.currentQuestionIndex + 1} VON {roomState.totalQuestions}
+                  {roomState.language === 'EN' ? 'QUESTION' : 'FRAGE'} {roomState.currentQuestionIndex + 1} {roomState.language === 'EN' ? 'OF' : 'VON'} {roomState.totalQuestions}
                 </span>
                 <span style={{ color: '#000000', fontFamily: 'MBCorpoSTitle', fontSize: '1.15rem', fontWeight: 'bold' }}>
                   {roomState.timerSeconds}S
@@ -423,20 +423,20 @@ export default function MobileView({ navigate }) {
                   <div className="mb-circular-number">{roomState.feedbackTimerSeconds}</div>
                 </div>
                 <span style={{ fontFamily: 'MBCorpoSTitle', fontSize: '1rem', color: '#737373', fontWeight: 'bold' }}>
-                  NÄCHSTE FRAGE IN {roomState.feedbackTimerSeconds}S
+                  {roomState.language === 'EN' ? 'NEXT QUESTION IN' : 'NÄCHSTE FRAGE IN'} {roomState.feedbackTimerSeconds}S
                 </span>
               </div>
 
               {/* Score Result Box */}
               {lastFeedback?.isCorrect === true ? (
                 <div style={{ background: '#1CA0FF', color: '#ffffff', padding: '2rem 1.5rem', marginBottom: '1.5rem' }}>
-                  <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'MBCorpoSTitle' }}>RICHTIG!</h1>
-                  <p style={{ fontSize: '1.4rem', fontFamily: 'MBCorpoSTitle' }}>+{lastFeedback.pointsEarned} PUNKTE</p>
+                  <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'MBCorpoSTitle' }}>{roomState.language === 'EN' ? 'CORRECT!' : 'RICHTIG!'}</h1>
+                  <p style={{ fontSize: '1.4rem', fontFamily: 'MBCorpoSTitle' }}>+{lastFeedback.pointsEarned} {roomState.language === 'EN' ? 'POINTS' : 'PUNKTE'}</p>
                 </div>
               ) : (
                 <div style={{ background: '#737373', color: '#ffffff', padding: '2rem 1.5rem', marginBottom: '1.5rem' }}>
-                  <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'MBCorpoSTitle' }}>FALSCH</h1>
-                  <p style={{ fontSize: '1.2rem', fontFamily: 'MBCorpoSTitle' }}>0 PUNKTE</p>
+                  <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'MBCorpoSTitle' }}>{roomState.language === 'EN' ? 'WRONG' : 'FALSCH'}</h1>
+                  <p style={{ fontSize: '1.2rem', fontFamily: 'MBCorpoSTitle' }}>0 {roomState.language === 'EN' ? 'POINTS' : 'PUNKTE'}</p>
                 </div>
               )}
 
@@ -444,7 +444,7 @@ export default function MobileView({ navigate }) {
               {roomState.currentQuestion && (
                 <div style={{ background: '#f5f5f5', borderLeft: '5px solid #1CA0FF', padding: '1rem', marginBottom: '1.5rem', textAlign: 'left' }}>
                   <div style={{ fontSize: '0.85rem', color: '#737373', fontFamily: 'MBCorpoSTitle', fontWeight: 'bold', marginBottom: '0.3rem' }}>
-                    RICHTIGE ANTWORT:
+                    {roomState.language === 'EN' ? 'CORRECT ANSWER:' : 'RICHTIGE ANTWORT:'}
                   </div>
                   <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#000000', fontFamily: 'MBCorpoSTitle' }}>
                     {String.fromCharCode(65 + roomState.currentQuestion.correctAnswerIndex)}: {roomState.currentQuestion.options[roomState.currentQuestion.correctAnswerIndex]}
@@ -454,7 +454,7 @@ export default function MobileView({ navigate }) {
             </div>
 
             <p style={{ color: '#737373', fontFamily: 'MBCorpoSTitle', fontSize: '1.1rem' }}>
-              Schau auf den Haupt-Bildschirm!
+              {roomState.language === 'EN' ? 'Look at the main screen!' : 'Schau auf den Haupt-Bildschirm!'}
             </p>
           </div>
         )}
@@ -498,19 +498,25 @@ export default function MobileView({ navigate }) {
                     {isWinner ? (
                       <>
                         <h1 style={{ fontSize: '2.6rem', marginBottom: '0.75rem', fontFamily: 'MBCorpoSTitle', color: '#1CA0FF', lineHeight: '1.1' }}>
-                          GEWONNEN!
+                          {roomState.language === 'EN' ? 'YOU WON!' : 'GEWONNEN!'}
                         </h1>
                         <p style={{ fontSize: '1.2rem', color: '#000000', marginBottom: '1.5rem', fontFamily: 'MBCorpoSText', lineHeight: '1.4' }}>
-                          Zeige deinen Bildschirm am Stand vor und erhalte dein free Giveaway.
+                          {roomState.language === 'EN'
+                            ? 'Show your screen at the booth to collect your free giveaway.'
+                            : 'Zeige deinen Bildschirm am Stand vor und erhalte dein free Giveaway.'}
                         </p>
                       </>
                     ) : (
                       <>
                         <h1 style={{ fontSize: '2.4rem', marginBottom: '0.75rem', fontFamily: 'MBCorpoSTitle', color: '#000000', lineHeight: '1.1' }}>
-                          STARKE LEISTUNG!
+                          {roomState.language === 'EN' ? 'GREAT PERFORMANCE!' : 'STARKE LEISTUNG!'}
                         </h1>
                         <p style={{ fontSize: '1.2rem', color: '#737373', marginBottom: '1.5rem', fontFamily: 'MBCorpoSText', lineHeight: '1.4' }}>
-                          Du hast den {rank}. Platz belegt.<br />Vielen Dank fürs Mitmachen!
+                          {roomState.language === 'EN' ? (
+                            <>You achieved rank {rank}.<br />Thank you for participating!</>
+                          ) : (
+                            <>Du hast den {rank}. Platz belegt.<br />Vielen Dank fürs Mitmachen!</>
+                          )}
                         </p>
                       </>
                     )}

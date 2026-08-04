@@ -256,7 +256,9 @@ export default function HostView({ navigate }) {
           {/* SCREEN 1: QR Code Lobby (`slide_qr.png`) */}
           {roomState.status === 'lobby' && (
             <div className="slide-container">
-              <h1 style={{ fontSize: '4rem', marginBottom: '2.5rem', color: '#000000', fontFamily: 'MBCorpoSTitle' }}>LOS GEHT´S!</h1>
+              <h1 style={{ fontSize: '4rem', marginBottom: '2.5rem', color: '#000000', fontFamily: 'MBCorpoSTitle' }}>
+                {roomState.language === 'EN' ? "LET'S GO!" : "LOS GEHT´S!"}
+              </h1>
 
               {/* Clean Blue QR Code directly on white background without box */}
               <div style={{ marginBottom: '2.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -266,7 +268,7 @@ export default function HostView({ navigate }) {
               {/* Player Count & Start Button */}
               <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '2.2rem', marginBottom: '1.5rem', color: '#000000', fontFamily: 'MBCorpoSTitle' }}>
-                  VERBUNDENE SPIELER: {roomState.playerCount} / {roomState.maxPlayers}
+                  {roomState.language === 'EN' ? 'CONNECTED PLAYERS:' : 'VERBUNDENE SPIELER:'} {roomState.playerCount} / {roomState.maxPlayers}
                 </h2>
 
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem' }}>
@@ -293,7 +295,7 @@ export default function HostView({ navigate }) {
                   disabled={roomState.playerCount === 0}
                   onClick={handleStartQuizNow}
                 >
-                  QUIZ JETZT STARTEN
+                  {roomState.language === 'EN' ? 'START QUIZ NOW' : 'QUIZ JETZT STARTEN'}
                 </button>
               </div>
             </div>
@@ -304,7 +306,7 @@ export default function HostView({ navigate }) {
             <div className="slide-container" style={{ justifyContent: 'flex-start', paddingTop: '2rem' }}>
               <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', paddingRight: '100px' }}>
                 <span style={{ fontFamily: 'MBCorpoSTitle', fontSize: '1.3rem', fontWeight: 'bold' }}>
-                  FRAGE {roomState.currentQuestionIndex + 1} VON {roomState.totalQuestions}
+                  {roomState.language === 'EN' ? 'QUESTION' : 'FRAGE'} {roomState.currentQuestionIndex + 1} {roomState.language === 'EN' ? 'OF' : 'VON'} {roomState.totalQuestions}
                 </span>
                 <span style={{ fontFamily: 'MBCorpoSTitle', fontSize: '1.6rem', fontWeight: 'bold', color: '#1CA0FF' }}>
                   {roomState.timerSeconds}S
@@ -337,8 +339,8 @@ export default function HostView({ navigate }) {
               </div>
 
               <div style={{ background: '#f5f5f5', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', width: '100%', fontFamily: 'MBCorpoSTitle' }}>
-                <span>ANTWORTEN EINGEGANGEN: <strong>{roomState.answersReceivedCount} / {roomState.playerCount}</strong></span>
-                <span style={{ color: '#737373' }}>AUTOMATISCHE WEITERLEITUNG</span>
+                <span>{roomState.language === 'EN' ? 'ANSWERS RECEIVED:' : 'ANTWORTEN EINGEGANGEN:'} <strong>{roomState.answersReceivedCount} / {roomState.playerCount}</strong></span>
+                <span style={{ color: '#737373' }}>{roomState.language === 'EN' ? 'AUTOMATIC REDIRECT' : 'AUTOMATISCHE WEITERLEITUNG'}</span>
               </div>
             </div>
           )}
@@ -350,7 +352,7 @@ export default function HostView({ navigate }) {
               <div className="mb-timer-overlay" style={{ background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)' }}>
                 <div style={{ background: '#ffffff', border: '2px solid #000000', padding: '3rem 4rem', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.15)', maxWidth: '850px', width: '90%' }}>
                   <h2 style={{ fontSize: '1.3rem', marginBottom: '1.2rem', letterSpacing: '2px', color: '#1CA0FF', fontFamily: 'MBCorpoSTitle', textTransform: 'uppercase', fontWeight: 'bold' }}>
-                    RICHTIGE ANTWORT:
+                    {roomState.language === 'EN' ? 'CORRECT ANSWER:' : 'RICHTIGE ANTWORT:'}
                   </h2>
 
                   {/* High-Impact Answer Card */}
@@ -364,7 +366,7 @@ export default function HostView({ navigate }) {
                   </div>
 
                   <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#737373', fontFamily: 'MBCorpoSTitle', letterSpacing: '1px' }}>
-                    NÄCHSTE FRAGE IN
+                    {roomState.language === 'EN' ? 'NEXT QUESTION IN' : 'NÄCHSTE FRAGE IN'}
                   </h3>
 
                   {/* Circular SVG Countdown Ring */}
@@ -387,7 +389,7 @@ export default function HostView({ navigate }) {
                   </div>
 
                   <button className="mb-btn" style={{ padding: '0.8rem 2.2rem', fontSize: '1.1rem' }} onClick={handleNextQuestion}>
-                    DIREKT WEITER ({roomState.feedbackTimerSeconds}S)
+                    {roomState.language === 'EN' ? `NEXT QUESTION (${roomState.feedbackTimerSeconds}S)` : `DIREKT WEITER (${roomState.feedbackTimerSeconds}S)`}
                   </button>
                 </div>
               </div>
@@ -395,7 +397,7 @@ export default function HostView({ navigate }) {
               {/* Background resolution view */}
               <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', opacity: 0.3 }}>
                 <span style={{ fontFamily: 'MBCorpoSTitle', fontSize: '1.4rem', color: '#1CA0FF', fontWeight: 'bold' }}>
-                  AUFLÖSUNG
+                  {roomState.language === 'EN' ? 'RESOLUTION' : 'AUFLÖSUNG'}
                 </span>
               </div>
 
@@ -435,7 +437,7 @@ export default function HostView({ navigate }) {
                     fontFamily: 'MBCorpoSTitle, sans-serif', 
                     textTransform: 'uppercase' 
                   }}>
-                    RANKING
+                    {roomState.language === 'EN' ? 'RANKING' : 'RANKING'}
                   </h1>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '0.5rem' }}>
@@ -464,7 +466,7 @@ export default function HostView({ navigate }) {
                           color: '#000000', 
                           fontFamily: 'MBCorpoSTitle, sans-serif' 
                         }}>
-                          {p.nickname}: {p.score} Punkte
+                          {p.nickname}: {p.score} {roomState.language === 'EN' ? 'Points' : 'Punkte'}
                         </span>
                       </div>
                     ))}
@@ -494,7 +496,7 @@ export default function HostView({ navigate }) {
                             color: '#000000', 
                             fontFamily: 'MBCorpoSTitle, sans-serif' 
                           }}>
-                            Spieler {rank}: 0 Punkte
+                            {roomState.language === 'EN' ? 'Player' : 'Spieler'} {rank}: 0 {roomState.language === 'EN' ? 'Points' : 'Punkte'}
                           </span>
                         </div>
                       );
@@ -514,7 +516,7 @@ export default function HostView({ navigate }) {
                         setStep('title');
                       }}
                     >
-                      NÄCHSTE RUNDE &rarr;
+                      {roomState.language === 'EN' ? 'NEXT ROUND' : 'NÄCHSTE RUNDE'} &rarr;
                     </button>
                   </div>
                 </div>
