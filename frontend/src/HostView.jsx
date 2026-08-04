@@ -194,10 +194,6 @@ export default function HostView({ navigate }) {
             <button className="mb-btn" style={{ minWidth: '260px', padding: '1.2rem 3rem', fontSize: '1.6rem' }} onClick={() => setStep('language')}>
               START
             </button>
-            
-            <button className="mb-btn mb-btn-secondary" style={{ fontSize: '0.85rem', padding: '0.4rem 1rem' }} onClick={() => navigate('/mobile')}>
-              Switch to Mobile View Demo
-            </button>
           </div>
         </div>
       )}
