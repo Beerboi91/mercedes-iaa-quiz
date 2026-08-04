@@ -226,8 +226,8 @@ export default function MobileView({ navigate }) {
 
             {/* Last Result & Giveaway Info Card */}
             {lastResult && (
-              <div style={{ background: '#ffffff', border: '2px solid #000000', padding: '1.5rem 1.25rem', marginTop: '1rem' }}>
-                <div style={{ position: 'relative', display: 'inline-block', marginBottom: '1rem' }}>
+              <div className="mb-slide-enter" style={{ background: '#ffffff', border: '2px solid #000000', padding: '1.5rem 1.25rem', marginTop: '1rem' }}>
+                <div className="mb-trophy-pulse" style={{ position: 'relative', display: 'inline-block', marginBottom: '1rem' }}>
                   <img src="/Pokal.svg" alt="Trophy" style={{ height: '100px' }} />
                   <div
                     style={{
@@ -356,7 +356,7 @@ export default function MobileView({ navigate }) {
             </div>
 
             {/* Question Text Centered */}
-            <h2 style={{ fontSize: '1.6rem', textAlign: 'center', marginBottom: '1.5rem', lineHeight: '1.3', fontFamily: 'MBCorpoSTitle', color: '#000000', textTransform: 'uppercase' }}>
+            <h2 className="mb-slide-enter" style={{ fontSize: '1.6rem', textAlign: 'center', marginBottom: '1.5rem', lineHeight: '1.3', fontFamily: 'MBCorpoSTitle', color: '#000000', textTransform: 'uppercase' }}>
               {roomState.currentQuestion?.questionText}
             </h2>
 

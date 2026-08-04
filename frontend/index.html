@@ -295,12 +295,48 @@
         transition: stroke-dashoffset 1s linear;
       }
 
-      .mb-circular-number {
-        position: absolute;
-        font-family: 'MBCorpoSTitle', sans-serif;
-        font-size: 4rem;
-        font-weight: bold;
-        color: #ffffff;
+      /* Micro-Animations: GPU-Accelerated 60fps */
+      .mb-btn:active {
+        transform: scale(0.96) translateY(0);
+      }
+      .mb-designer-option {
+        transition: transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.15s ease, border-color 0.15s ease;
+      }
+      .mb-designer-option:active {
+        transform: scale(0.97);
+      }
+      .mb-option-btn:active {
+        transform: scale(0.97);
+      }
+
+      /* Slide-In Fade Animation for Questions */
+      .mb-slide-enter {
+        animation: slideInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        will-change: transform, opacity;
+      }
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Gentle Trophy Gentle Pulse Animation */
+      .mb-trophy-pulse {
+        animation: trophyPulse 3s ease-in-out infinite;
+        will-change: transform;
+      }
+      @keyframes trophyPulse {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.04);
+        }
       }
     </style>
   </head>
