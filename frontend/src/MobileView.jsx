@@ -256,8 +256,41 @@ export default function MobileView({ navigate }) {
               <img src="/logo.svg" alt="Mercedes-Benz Logo" style={{ height: '70px' }} />
             </div>
 
-            <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', textAlign: 'center', fontFamily: 'MBCorpoSTitle' }}>WILLKOMMEN BEIM QUIZ</h1>
-            <p style={{ textAlign: 'center', color: '#737373', marginBottom: '2.5rem', fontSize: '1.1rem' }}>Gib deinen Spitznamen ein</p>
+            {/* Persistent Last Result Notice after page refresh */}
+            {lastResult && (
+              <div style={{ background: '#ffffff', border: '2px solid #000000', padding: '1.5rem 1.25rem', marginBottom: '2rem', textAlign: 'center' }}>
+                <div style={{ position: 'relative', display: 'inline-block', marginBottom: '0.75rem' }}>
+                  <img src="/Pokal.svg" alt="Trophy" style={{ height: '90px' }} />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '25%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      fontFamily: 'MBCorpoSTitle',
+                      fontSize: '1.4rem',
+                      fontWeight: 'bold',
+                      color: '#000000'
+                    }}
+                  >
+                    {lastResult.rank}
+                  </div>
+                </div>
+
+                <h2 style={{ fontSize: '1.5rem', fontFamily: 'MBCorpoSTitle', color: lastResult.isWinner ? '#1CA0FF' : '#000000', marginBottom: '0.5rem' }}>
+                  {lastResult.isWinner ? '1. PLATZ – DEIN LETZTES ERGEBNIS' : `${lastResult.rank}. PLATZ – DEIN LETZTES ERGEBNIS`}
+                </h2>
+
+                <p style={{ fontSize: '1rem', fontFamily: 'MBCorpoSText', color: lastResult.isWinner ? '#000000' : '#555555', fontWeight: lastResult.isWinner ? 'bold' : 'normal', lineHeight: '1.4' }}>
+                  {lastResult.isWinner
+                    ? 'Zeige deinen Bildschirm am Stand vor und erhalte dein free Giveaway.'
+                    : 'Vielen Dank fürs Mitmachen!'}
+                </p>
+              </div>
+            )}
+
+            <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem', textAlign: 'center', fontFamily: 'MBCorpoSTitle' }}>NEUES QUIZ BEITRETEN</h1>
+            <p style={{ textAlign: 'center', color: '#737373', marginBottom: '2rem', fontSize: '1rem' }}>Gib deinen Spitznamen ein für die nächste Runde</p>
 
             {errorMsg && (
               <div style={{ background: '#737373', color: '#ffffff', padding: '1rem', marginBottom: '1.5rem', fontWeight: 'bold', textAlign: 'center', fontFamily: 'MBCorpoSTitle' }}>
