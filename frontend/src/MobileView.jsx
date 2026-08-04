@@ -402,7 +402,7 @@ export default function MobileView({ navigate }) {
                       r="70"
                       style={{
                         strokeDasharray: 439.82,
-                        strokeDashoffset: 439.82 * (1 - (roomState.feedbackTimerSeconds / 5))
+                        strokeDashoffset: 439.82 * (1 - (roomState.feedbackTimerSeconds / 8))
                       }}
                     />
                   </svg>

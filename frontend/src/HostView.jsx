@@ -378,7 +378,7 @@ export default function HostView({ navigate }) {
                         r="70"
                         style={{
                           strokeDasharray: 439.82,
-                          strokeDashoffset: 439.82 * (1 - (roomState.feedbackTimerSeconds / 5)),
+                          strokeDashoffset: 439.82 * (1 - (roomState.feedbackTimerSeconds / 8)),
                           stroke: '#1CA0FF'
                         }}
                       />
@@ -387,7 +387,7 @@ export default function HostView({ navigate }) {
                   </div>
 
                   <button className="mb-btn" style={{ padding: '0.8rem 2.2rem', fontSize: '1.1rem' }} onClick={handleNextQuestion}>
-                    DIREKT WEITER (5S)
+                    DIREKT WEITER ({roomState.feedbackTimerSeconds}S)
                   </button>
                 </div>
               </div>

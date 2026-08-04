@@ -150,7 +150,7 @@ function startFeedbackTimer(room) {
   const totalQuestions = room.mode === 'express' ? 5 : 10;
   
   room.status = 'feedback';
-  room.feedbackTimerSeconds = 5;
+  room.feedbackTimerSeconds = 8;
   broadcastRoomState(room.roomId);
 
   room.feedbackTimerInterval = setInterval(() => {
