@@ -137,7 +137,7 @@ export default function MobileView({ navigate }) {
         if (rankIndex >= 0) {
           const rank = rankIndex + 1;
           const isWinner = rank === 1;
-          const resultData = { rank, isWinner, nickname: sorted[rankIndex].nickname, roomId: state.roomId };
+          const resultData = { rank, isWinner, nickname: sorted[rankIndex].nickname, roomId: state.roomId, language: state.language };
           setLastResult(resultData);
           try {
             localStorage.setItem('mb_quiz_last_result', JSON.stringify(resultData));
@@ -232,10 +232,12 @@ export default function MobileView({ navigate }) {
             </div>
 
             <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', fontFamily: 'MBCorpoSTitle', color: '#000000', lineHeight: '1.2' }}>
-              DIESE RUNDE IST BEENDET!
+              {(lastResult?.language === 'EN' || roomState?.language === 'EN') ? 'THIS ROUND HAS ENDED!' : 'DIESE RUNDE IST BEENDET!'}
             </h1>
             <p style={{ fontSize: '1.1rem', color: '#555555', marginBottom: '1rem', fontFamily: 'MBCorpoSText', lineHeight: '1.4' }}>
-              Scanne den neuen QR-Code auf dem Haupt-Bildschirm, um erneut zu spielen.
+              {(lastResult?.language === 'EN' || roomState?.language === 'EN')
+                ? 'Scan the new QR code on the main screen to play again.'
+                : 'Scanne den neuen QR-Code auf dem Haupt-Bildschirm, um erneut zu spielen.'}
             </p>
 
             {/* Last Result & Giveaway Info Card */}
@@ -260,13 +262,19 @@ export default function MobileView({ navigate }) {
                 </div>
 
                 <h2 style={{ fontSize: '1.6rem', fontFamily: 'MBCorpoSTitle', color: lastResult.isWinner ? '#1CA0FF' : '#000000', marginBottom: '0.5rem' }}>
-                  {lastResult.isWinner ? '1. PLATZ – GEWONNEN!' : `${lastResult.rank}. PLATZ BELEGT`}
+                  {lastResult.isWinner
+                    ? (lastResult.language === 'EN' ? 'RANK 1 – YOU WON!' : '1. PLATZ – GEWONNEN!')
+                    : (lastResult.language === 'EN' ? `RANK ${lastResult.rank} ACHIEVED` : `${lastResult.rank}. PLATZ BELEGT`)}
                 </h2>
 
                 <p style={{ fontSize: '1.1rem', fontFamily: 'MBCorpoSText', color: lastResult.isWinner ? '#000000' : '#555555', fontWeight: lastResult.isWinner ? 'bold' : 'normal', lineHeight: '1.4' }}>
                   {lastResult.isWinner
-                    ? 'Zeige deinen Bildschirm am Stand vor und erhalte dein free Giveaway.'
-                    : 'Starke Leistung! Vielen Dank fürs Mitmachen.'}
+                    ? (lastResult.language === 'EN'
+                        ? 'Show your screen at the booth to collect your free giveaway.'
+                        : 'Zeige deinen Bildschirm am Stand vor und erhalte dein free Giveaway.')
+                    : (lastResult.language === 'EN'
+                        ? 'Great performance! Thank you for participating.'
+                        : 'Starke Leistung! Vielen Dank fürs Mitmachen.')}
                 </p>
               </div>
             )}
