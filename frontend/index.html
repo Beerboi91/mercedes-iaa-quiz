@@ -340,17 +340,18 @@
         }
       }
 
-      /* Gentle Trophy Gentle Pulse Animation */
+      /* Gentle Trophy Pulse Animation */
       .mb-trophy-pulse {
-        animation: trophyPulse 3s ease-in-out infinite;
+        animation: trophyPulse 2s ease-in-out infinite !important;
         will-change: transform;
+        display: inline-block;
       }
       @keyframes trophyPulse {
         0%, 100% {
           transform: scale(1);
         }
         50% {
-          transform: scale(1.04);
+          transform: scale(1.08);
         }
       }
     </style>
