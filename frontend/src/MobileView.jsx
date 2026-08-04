@@ -16,6 +16,14 @@ export default function MobileView({ navigate }) {
   const [lastFeedback, setLastFeedback] = useState(null);
   const [giveawayClaimed, setGiveawayClaimed] = useState(false);
   const [roundEnded, setRoundEnded] = useState(false);
+  const [lastResult, setLastResult] = useState(() => {
+    try {
+      const saved = localStorage.getItem('mb_quiz_last_result');
+      return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+      return null;
+    }
+  });
 
   // Helper for session storage
   const getStoredSession = () => {
@@ -102,6 +110,20 @@ export default function MobileView({ navigate }) {
         }
       }
 
+      if (state.status === 'leaderboard' && state.players) {
+        const sorted = [...state.players].sort((a, b) => b.score - a.score);
+        const rankIndex = sorted.findIndex(p => p.id === socket.id);
+        if (rankIndex >= 0) {
+          const rank = rankIndex + 1;
+          const isWinner = rank === 1;
+          const resultData = { rank, isWinner, nickname: sorted[rankIndex].nickname };
+          setLastResult(resultData);
+          try {
+            localStorage.setItem('mb_quiz_last_result', JSON.stringify(resultData));
+          } catch (e) {}
+        }
+      }
+
       if (state.status === 'feedback' && state.players) {
         const me = state.players.find(p => p.id === socket.id);
         if (me) {
@@ -180,25 +202,53 @@ export default function MobileView({ navigate }) {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#ffffff' }}>
-
       <div style={{ padding: '1.5rem 1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
         {/* SCREEN 0: Round Ended Notice (If round was reset by host) */}
         {roundEnded && !joined ? (
           <div style={{ margin: 'auto 0', textAlign: 'center', padding: '1.5rem 0' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
               <img src="/logo.svg" alt="Mercedes-Benz Logo" style={{ height: '75px' }} />
             </div>
 
-            <h1 style={{ fontSize: '2.4rem', marginBottom: '1rem', fontFamily: 'MBCorpoSTitle', color: '#000000', lineHeight: '1.2' }}>
+            <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', fontFamily: 'MBCorpoSTitle', color: '#000000', lineHeight: '1.2' }}>
               DIESE RUNDE IST BEENDET!
             </h1>
-            <p style={{ fontSize: '1.2rem', color: '#555555', marginBottom: '2.5rem', fontFamily: 'MBCorpoSText', lineHeight: '1.5' }}>
+            <p style={{ fontSize: '1.1rem', color: '#555555', marginBottom: '1rem', fontFamily: 'MBCorpoSText', lineHeight: '1.4' }}>
               Scanne den neuen QR-Code auf dem Haupt-Bildschirm, um erneut zu spielen.
             </p>
 
-            <div style={{ background: '#1CA0FF', color: '#ffffff', padding: '1.2rem 1.8rem', fontFamily: 'MBCorpoSTitle', fontSize: '1.15rem', fontWeight: 'bold', display: 'inline-block' }}>
-              NEUEN QR-CODE SCANNEN
-            </div>
+            {/* Last Result & Giveaway Info */}
+            {lastResult ? (
+              <div style={{ background: '#f5f5f5', border: '2px solid #000000', padding: '1.5rem 1.25rem', marginTop: '1rem' }}>
+                <div style={{ position: 'relative', display: 'inline-block', marginBottom: '1rem' }}>
+                  <img src="/Pokal.svg" alt="Trophy" style={{ height: '100px' }} />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '25%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      fontFamily: 'MBCorpoSTitle',
+                      fontSize: '1.5rem',
+                      fontWeight: 'bold',
+                      color: '#000000'
+                    }}
+                  >
+                    {lastResult.rank}
+                  </div>
+                </div>
+
+                <h2 style={{ fontSize: '1.6rem', fontFamily: 'MBCorpoSTitle', color: lastResult.isWinner ? '#1CA0FF' : '#000000', marginBottom: '0.5rem' }}>
+                  {lastResult.isWinner ? '1. PLATZ – GEWONNEN!' : `${lastResult.rank}. PLATZ BELEGT`}
+                </h2>
+
+                <p style={{ fontSize: '1.1rem', fontFamily: 'MBCorpoSText', color: lastResult.isWinner ? '#000000' : '#555555', fontWeight: lastResult.isWinner ? 'bold' : 'normal', lineHeight: '1.4' }}>
+                  {lastResult.isWinner
+                    ? 'Zeige deinen Bildschirm am Stand vor und erhalte dein free Giveaway.'
+                    : 'Starke Leistung! Vielen Dank fürs Mitmachen.'}
+                </p>
+              </div>
+            ) : null}
           </div>
         ) : !joined && (
           <div style={{ margin: 'auto 0' }}>
