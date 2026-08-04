@@ -219,7 +219,7 @@ export default function MobileView({ navigate }) {
 
             {/* Last Result & Giveaway Info */}
             {lastResult ? (
-              <div style={{ background: '#f5f5f5', border: '2px solid #000000', padding: '1.5rem 1.25rem', marginTop: '1rem' }}>
+              <div style={{ background: '#ffffff', border: '2px solid #000000', padding: '1.5rem 1.25rem', marginTop: '1rem' }}>
                 <div style={{ position: 'relative', display: 'inline-block', marginBottom: '1rem' }}>
                   <img src="/Pokal.svg" alt="Trophy" style={{ height: '100px' }} />
                   <div
