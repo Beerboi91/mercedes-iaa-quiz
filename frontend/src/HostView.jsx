@@ -329,8 +329,9 @@ export default function HostView({ navigate }) {
 
               <div style={{ width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2.5rem' }}>
                 {roomState.currentQuestion?.options.map((opt, idx) => (
-                  <div key={idx} className="mb-option-btn">
-                    <span><strong>{String.fromCharCode(65 + idx)}:</strong> {opt}</span>
+                  <div key={idx} className="mb-designer-option" style={{ margin: 0 }}>
+                    <div className="letter-box">{String.fromCharCode(65 + idx)}</div>
+                    <div className="text-box">{opt}</div>
                   </div>
                 ))}
               </div>
@@ -406,8 +407,9 @@ export default function HostView({ navigate }) {
                 {roomState.currentQuestion?.options.map((opt, idx) => {
                   const isCorrect = idx === roomState.currentQuestion.correctAnswerIndex;
                   return (
-                    <div key={idx} className={`mb-option-btn ${isCorrect ? 'correct' : 'incorrect'}`}>
-                      <span><strong>{String.fromCharCode(65 + idx)}:</strong> {opt}</span>
+                    <div key={idx} className={`mb-designer-option ${isCorrect ? 'selected' : 'incorrect'}`} style={{ margin: 0 }}>
+                      <div className="letter-box">{String.fromCharCode(65 + idx)}</div>
+                      <div className="text-box">{opt}</div>
                     </div>
                   );
                 })}
