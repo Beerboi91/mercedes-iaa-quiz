@@ -21,10 +21,15 @@ export default function MobileView({ navigate }) {
       const saved = localStorage.getItem('mb_quiz_last_result');
       if (!saved) return null;
       const parsed = JSON.parse(saved);
-      // If user scanned a QR code for a DIFFERENT new room, clear previous result
-      if (roomParam && parsed?.roomId && parsed.roomId !== roomParam.toUpperCase()) {
-        localStorage.removeItem('mb_quiz_last_result');
-        return null;
+      // If user scanned a QR code with a roomParam, check if it differs
+      if (roomParam) {
+        const cleanParam = roomParam.trim().toUpperCase();
+        if (parsed?.roomId && parsed.roomId !== cleanParam) {
+          localStorage.removeItem('mb_quiz_last_result');
+          sessionStorage.removeItem('mb_quiz_session');
+          localStorage.removeItem('mb_quiz_session');
+          return null;
+        }
       }
       return parsed;
     } catch (e) {
@@ -63,7 +68,16 @@ export default function MobileView({ navigate }) {
     if (!savedSession) return;
 
     const { roomId: savedRoom, nickname: savedName, playerKey } = savedSession;
-    const targetRoom = roomParam || savedRoom;
+    
+    // If scanning a brand new room via QR code, drop old session
+    if (roomParam && roomParam.trim().toUpperCase() !== savedRoom) {
+      clearStoredSession();
+      setJoined(false);
+      setRoomState(null);
+      return;
+    }
+
+    const targetRoom = roomParam ? roomParam.trim().toUpperCase() : savedRoom;
 
     if (targetRoom && playerKey) {
       setRoomId(targetRoom);
