@@ -521,7 +521,7 @@ export default function HostView({ navigate }) {
 
                 {/* Right Column: Trophy */}
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <div style={{ position: 'relative', display: 'inline-block' }}>
+                  <div className="mb-trophy-pulse" style={{ position: 'relative', display: 'inline-block' }}>
                     <img 
                       src="/Pokal.svg" 
                       alt="Pokal" 

@@ -463,7 +463,7 @@ export default function MobileView({ navigate }) {
                 return (
                   <>
                     {/* Pokal SVG Container */}
-                    <div style={{ position: 'relative', display: 'inline-block', marginBottom: '1.5rem' }}>
+                    <div className="mb-trophy-pulse" style={{ position: 'relative', display: 'inline-block', marginBottom: '1.5rem' }}>
                       <img src="/Pokal.svg" alt="Trophy" style={{ height: '140px' }} />
                       <div
                         style={{
