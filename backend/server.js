@@ -16,7 +16,7 @@ const io = new Server(httpServer, {
 });
 
 const MAX_PLAYERS = 4;
-const QUESTION_TIMEOUT_SECONDS = 15;
+const QUESTION_TIMEOUT_SECONDS = 25;
 
 // In-memory rooms storage
 const rooms = new Map();
