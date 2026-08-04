@@ -50,6 +50,7 @@ function getPublicRoomState(room) {
     currentQuestionIndex: room.currentQuestionIndex,
     totalQuestions: questionCount,
     timerSeconds: room.timerSeconds,
+    maxQuestionTimerSeconds: QUESTION_TIMEOUT_SECONDS,
     feedbackTimerSeconds: room.feedbackTimerSeconds || 0,
     answersReceivedCount: room.players.filter(p => p.answered && !p.disconnected).length,
     currentQuestion: currentQ ? {

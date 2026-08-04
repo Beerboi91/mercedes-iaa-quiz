@@ -278,7 +278,7 @@ export default function MobileView({ navigate }) {
                   style={{
                     height: '100%',
                     background: '#1CA0FF',
-                    width: `${Math.min(100, Math.max(0, (roomState.timerSeconds / 25) * 100))}%`,
+                    width: `${Math.min(100, Math.max(0, (roomState.timerSeconds / (roomState.maxQuestionTimerSeconds || 25)) * 100))}%`,
                     transition: 'width 1s linear'
                   }}
                 />
