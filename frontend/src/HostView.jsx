@@ -383,7 +383,7 @@ export default function HostView({ navigate }) {
                         }}
                       />
                     </svg>
-                    <div className="mb-circular-number" style={{ color: '#000000', fontSize: '3.2rem' }}>{roomState.feedbackTimerSeconds}</div>
+                    <div className="mb-circular-number">{roomState.feedbackTimerSeconds}</div>
                   </div>
 
                   <button className="mb-btn" style={{ padding: '0.8rem 2.2rem', fontSize: '1.1rem' }} onClick={handleNextQuestion}>

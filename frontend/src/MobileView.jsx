@@ -406,7 +406,7 @@ export default function MobileView({ navigate }) {
                       }}
                     />
                   </svg>
-                  <div className="mb-circular-number" style={{ fontSize: '2.6rem' }}>{roomState.feedbackTimerSeconds}</div>
+                  <div className="mb-circular-number">{roomState.feedbackTimerSeconds}</div>
                 </div>
                 <span style={{ fontFamily: 'MBCorpoSTitle', fontSize: '1rem', color: '#737373', fontWeight: 'bold' }}>
                   NÄCHSTE FRAGE IN {roomState.feedbackTimerSeconds}S
