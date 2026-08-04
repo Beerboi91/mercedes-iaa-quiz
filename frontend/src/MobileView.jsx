@@ -356,6 +356,9 @@ export default function MobileView({ navigate }) {
                 className="mb-btn mb-btn-outline"
                 style={{ fontSize: '0.85rem', padding: '0.4rem 1rem' }}
                 onClick={() => {
+                  if (roomState?.roomId) {
+                    socket.emit('leave_room', { roomId: roomState.roomId });
+                  }
                   clearStoredSession();
                   setJoined(false);
                   setRoomState(null);

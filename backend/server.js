@@ -327,6 +327,22 @@ io.on('connection', (socket) => {
     broadcastRoomState(roomId);
   });
 
+  // Leave room (Mobile lobby action)
+  socket.on('leave_room', ({ roomId }) => {
+    const targetRoomId = roomId || socket.roomId;
+    if (!targetRoomId) return;
+
+    const room = rooms.get(targetRoomId);
+    if (!room) return;
+
+    console.log(`Player on socket ${socket.id} left room ${targetRoomId}`);
+    room.players = room.players.filter(p => p.id !== socket.id);
+    socket.leave(targetRoomId);
+    socket.roomId = null;
+
+    broadcastRoomState(targetRoomId);
+  });
+
   // Host starts quiz
   socket.on('start_quiz', ({ roomId }) => {
     const room = rooms.get(roomId);
