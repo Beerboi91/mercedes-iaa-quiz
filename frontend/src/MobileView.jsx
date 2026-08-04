@@ -19,7 +19,14 @@ export default function MobileView({ navigate }) {
   const [lastResult, setLastResult] = useState(() => {
     try {
       const saved = localStorage.getItem('mb_quiz_last_result');
-      return saved ? JSON.parse(saved) : null;
+      if (!saved) return null;
+      const parsed = JSON.parse(saved);
+      // If user scanned a QR code for a DIFFERENT new room, clear previous result
+      if (roomParam && parsed?.roomId && parsed.roomId !== roomParam.toUpperCase()) {
+        localStorage.removeItem('mb_quiz_last_result');
+        return null;
+      }
+      return parsed;
     } catch (e) {
       return null;
     }
@@ -116,7 +123,7 @@ export default function MobileView({ navigate }) {
         if (rankIndex >= 0) {
           const rank = rankIndex + 1;
           const isWinner = rank === 1;
-          const resultData = { rank, isWinner, nickname: sorted[rankIndex].nickname };
+          const resultData = { rank, isWinner, nickname: sorted[rankIndex].nickname, roomId: state.roomId };
           setLastResult(resultData);
           try {
             localStorage.setItem('mb_quiz_last_result', JSON.stringify(resultData));
