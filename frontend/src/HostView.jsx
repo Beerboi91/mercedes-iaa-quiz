@@ -112,6 +112,9 @@ export default function HostView({ navigate }) {
             filter: step === 'title' ? 'brightness(0) invert(1)' : 'none',
             transition: 'filter 0.2s ease'
           }}
+        />
+      </div>
+
       {/* Hostess 3-Tap Reset Confirmation Modal */}
       {showResetConfirmModal && (
         <div className="mb-timer-overlay" style={{ background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)', zIndex: 2000 }}>
