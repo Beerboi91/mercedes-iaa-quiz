@@ -254,6 +254,16 @@ io.on('connection', (socket) => {
     broadcastRoomState(code);
   });
 
+  // Get Room Info (Mobile pre-join language lookup)
+  socket.on('get_room_info', ({ roomId }, callback) => {
+    const room = rooms.get(roomId);
+    if (!room) {
+      if (callback) callback({ success: false, error: 'ROOM_NOT_FOUND' });
+      return;
+    }
+    if (callback) callback({ success: true, language: room.language, mode: room.mode, status: room.status });
+  });
+
   // Join room (Mobile action)
   socket.on('join_room', ({ roomId, nickname, playerKey }, callback) => {
     const room = rooms.get(roomId);

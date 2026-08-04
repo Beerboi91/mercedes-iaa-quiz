@@ -99,6 +99,18 @@ export default function MobileView({ navigate }) {
     }
   };
 
+  // Pre-fetch room info (language) when roomParam is present
+  useEffect(() => {
+    if (roomParam) {
+      const cleanRoom = roomParam.trim().toUpperCase();
+      socket.emit('get_room_info', { roomId: cleanRoom }, (res) => {
+        if (res && res.success && res.language) {
+          setRoomState(prev => prev ? { ...prev, language: res.language } : { language: res.language });
+        }
+      });
+    }
+  }, [roomParam]);
+
   // OPTION A: Auto-rejoin on mount AND on socket reconnect
   useEffect(() => {
     attemptRejoin();
@@ -285,8 +297,12 @@ export default function MobileView({ navigate }) {
               <img src="/logo.svg" alt="Mercedes-Benz Logo" style={{ height: '70px' }} />
             </div>
 
-            <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', textAlign: 'center', fontFamily: 'MBCorpoSTitle' }}>WILLKOMMEN BEIM QUIZ</h1>
-            <p style={{ textAlign: 'center', color: '#737373', marginBottom: '2.5rem', fontSize: '1.1rem' }}>Gib deinen Spitznamen ein</p>
+            <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', textAlign: 'center', fontFamily: 'MBCorpoSTitle' }}>
+              {roomState?.language === 'EN' ? 'WELCOME TO THE QUIZ' : 'WILLKOMMEN BEIM QUIZ'}
+            </h1>
+            <p style={{ textAlign: 'center', color: '#737373', marginBottom: '2.5rem', fontSize: '1.1rem' }}>
+              {roomState?.language === 'EN' ? 'Enter your nickname' : 'Gib deinen Spitznamen ein'}
+            </p>
 
             {errorMsg && (
               <div style={{ background: '#737373', color: '#ffffff', padding: '1rem', marginBottom: '1.5rem', fontWeight: 'bold', textAlign: 'center', fontFamily: 'MBCorpoSTitle' }}>
@@ -296,10 +312,12 @@ export default function MobileView({ navigate }) {
 
             <form onSubmit={handleJoin} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div>
-                <label style={{ display: 'block', fontFamily: 'MBCorpoSTitle', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.95rem' }}>SPITZNAME / NICKNAME:</label>
+                <label style={{ display: 'block', fontFamily: 'MBCorpoSTitle', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.95rem' }}>
+                  {roomState?.language === 'EN' ? 'NICKNAME:' : 'SPITZNAME / NICKNAME:'}
+                </label>
                 <input
                   type="text"
-                  placeholder="Dein Name"
+                  placeholder={roomState?.language === 'EN' ? 'Your Name' : 'Dein Name'}
                   value={nickname}
                   onChange={(e) => setNickname(e.target.value)}
                   maxLength={15}
@@ -310,7 +328,7 @@ export default function MobileView({ navigate }) {
               </div>
 
               <button type="submit" className="mb-btn" style={{ width: '100%', marginTop: '1rem', padding: '1.2rem' }}>
-                QUIZ BEITRETEN
+                {roomState?.language === 'EN' ? 'JOIN QUIZ' : 'QUIZ BEITRETEN'}
               </button>
             </form>
           </div>
@@ -323,12 +341,14 @@ export default function MobileView({ navigate }) {
               <img src="/logo.svg" alt="Mercedes-Benz Logo" style={{ height: '75px' }} />
             </div>
 
-            <h1 style={{ fontSize: '2.2rem', marginBottom: '1rem', fontFamily: 'MBCorpoSTitle' }}>DU BIST DABEI, {nickname.toUpperCase()}!</h1>
+            <h1 style={{ fontSize: '2.2rem', marginBottom: '1rem', fontFamily: 'MBCorpoSTitle' }}>
+              {roomState?.language === 'EN' ? `YOU'RE IN, ${nickname.toUpperCase()}!` : `DU BIST DABEI, ${nickname.toUpperCase()}!`}
+            </h1>
             <p style={{ fontSize: '1.2rem', color: '#555555', marginBottom: '2.5rem', lineHeight: '1.4' }}>
-              Schau auf den Haupt-Bildschirm... Das Quiz startet in Kürze!
+              {roomState?.language === 'EN' ? 'Look at the main screen... The quiz starts shortly!' : 'Schau auf den Haupt-Bildschirm... Das Quiz startet in Kürze!'}
             </p>
             <div style={{ background: '#1CA0FF', color: '#ffffff', padding: '1rem 1.75rem', fontFamily: 'MBCorpoSTitle', fontSize: '1.2rem', fontWeight: 'bold', display: 'inline-block', marginBottom: '2rem' }}>
-              WARTEN ({roomState.playerCount}/{roomState.maxPlayers} SPIELER)
+              {roomState?.language === 'EN' ? `WAITING (${roomState.playerCount}/${roomState.maxPlayers} PLAYERS)` : `WARTEN (${roomState.playerCount}/${roomState.maxPlayers} SPIELER)`}
             </div>
 
             <div>
@@ -341,7 +361,7 @@ export default function MobileView({ navigate }) {
                   setRoomState(null);
                 }}
               >
-                RAUM VERLASSEN
+                {roomState?.language === 'EN' ? 'LEAVE ROOM' : 'RAUM VERLASSEN'}
               </button>
             </div>
           </div>
