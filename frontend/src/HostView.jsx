@@ -302,7 +302,7 @@ export default function HostView({ navigate }) {
           {/* SCREEN 3: Question Slide (`slide_question.png`) */}
           {roomState.status === 'question' && (
             <div className="slide-container" style={{ justifyContent: 'flex-start', paddingTop: '2rem' }}>
-              <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', paddingRight: '100px' }}>
                 <span style={{ fontFamily: 'MBCorpoSTitle', fontSize: '1.3rem', fontWeight: 'bold' }}>
                   FRAGE {roomState.currentQuestionIndex + 1} VON {roomState.totalQuestions}
                 </span>
