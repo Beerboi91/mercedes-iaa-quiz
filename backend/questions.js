@@ -19,16 +19,16 @@ export const QUESTIONS = [
     },
     options: {
       de: [
-        "Werkstattleistungen europaweit bargeldlos abzuwickeln",
+        "Internationale Pannenfälle europaweit bargeldlos abzuwickeln",
         "Den Truck per Karte zu starten",
         "Kaffee-Stempel an Tankstellen zu sammeln",
         "Fahrzeugdaten während der Fahrt automatisch auszuwerten"
       ],
       en: [
-        "Cashless workshop services across Europe",
-        "Starting the truck using a card",
-        "Collecting coffee stamps at gas stations",
-        "Automatically evaluating vehicle data while driving"
+        "Settle international breakdowns across Europe without cash",
+        "Start the truck using a card",
+        "Collect coffee stamps at gas stations",
+        "Automatically evaluate vehicle data while driving"
       ]
     },
     correctAnswerIndex: 0
@@ -36,19 +36,19 @@ export const QUESTIONS = [
   {
     id: 3,
     question: {
-      de: "Was ermöglichte der mobile Kalkulationsrechner ab 1979 direkt im Autohaus?",
-      en: "What did the mobile calculation calculator enable directly at the dealership from 1979?"
+      de: "Was ermöglichte der mobile Kalkulationsrechner ab 1979 direkt beim Lkw-Händler?",
+      en: "What did the mobile calculation calculator enable directly at the truck dealership from 1979?"
     },
     options: {
       de: [
         "Eine automatische Schadensmeldung",
-        "Individuelle Finanzierungsangebote",
+        "Kalkulation von Monatsraten",
         "Die digitale Bestellung von Ersatzteilen",
         "Die live Abrechnung des Verkaufsgesprächs"
       ],
       en: [
         "Automatic damage reporting",
-        "Individual financing offers",
+        "Calculation of monthly rates",
         "Digital ordering of spare parts",
         "Live settlement of sales talks"
       ]
@@ -190,3 +190,4 @@ export const QUESTIONS = [
     correctAnswerIndex: 3
   }
 ];
+
