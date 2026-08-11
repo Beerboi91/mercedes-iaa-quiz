@@ -294,20 +294,28 @@ export default function HostView({ navigate }) {
                   {roomState.language === 'EN' ? 'CONNECTED PLAYERS:' : 'VERBUNDENE SPIELER:'} {roomState.playerCount} / {roomState.maxPlayers}
                 </h2>
 
-                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem' }}>
+                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2.5rem', maxWidth: '1000px', margin: '0 auto 2.5rem auto' }}>
                   {roomState.players.map((p) => (
                     <div
                       key={p.id}
+                      className="mb-slide-enter"
                       style={{
                         background: '#1CA0FF',
                         color: '#ffffff',
-                        padding: '0.75rem 1.5rem',
-                        fontFamily: 'MBCorpoSTitle',
-                        fontSize: '1.2rem',
-                        fontWeight: 'bold'
+                        padding: '0.85rem 2.5rem',
+                        borderRadius: '50px',
+                        fontFamily: 'MBCorpoSTitle, sans-serif',
+                        fontSize: '1.35rem',
+                        fontWeight: 'bold',
+                        letterSpacing: '0.5px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        opacity: p.disconnected ? 0.5 : 1,
+                        boxShadow: '0 4px 12px rgba(28, 160, 255, 0.2)'
                       }}
                     >
-                      {p.nickname} {p.disconnected ? '(Disconnected)' : ''}
+                      {p.nickname} {p.disconnected ? '(Offline)' : ''}
                     </div>
                   ))}
                 </div>
