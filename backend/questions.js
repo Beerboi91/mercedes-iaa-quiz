@@ -3,11 +3,21 @@ export const QUESTIONS = [
     id: 1,
     question: {
       de: "Womit begann 1972 die Geschichte der Mercedes-Benz Trucks Tauschteile?",
-      en: "How did the history of Mercedes-Benz Trucks remanufactured parts begin in 1972?"
+      en: "What marked the beginning of the Mercedes-Benz Trucks Remanufactured Parts program in 1972?"
     },
     options: {
-      de: ["Mit einer Hochvolt-Batterie", "Mit einem Luftfilter", "Mit einem Getriebe", "Mit einer Vorderachse"],
-      en: ["With a high-voltage battery", "With an air filter", "With a transmission", "With a front axle"]
+      de: [
+        "Mit einer Hochvolt-Batterie",
+        "Mit einem Luftfilter",
+        "Mit einem Getriebe",
+        "Mit einer Vorderachse"
+      ],
+      en: [
+        "High-voltage battery",
+        "Air filter",
+        "Transmission",
+        "Front axle"
+      ]
     },
     correctAnswerIndex: 2
   },
@@ -15,20 +25,20 @@ export const QUESTIONS = [
     id: 2,
     question: {
       de: "Was machte die Mercedes ServiceCard ab 2000 möglich?",
-      en: "What did the Mercedes ServiceCard make possible from 2000 onwards?"
+      en: "What did the Mercedes ServiceCard make possible starting in 2000?"
     },
     options: {
       de: [
-        "Internationale Pannenfälle europaweit bargeldlos abzuwickeln",
+        "Internationale Pannenfälle bargeldlos abzuwickeln",
         "Den Truck per Karte zu starten",
         "Kaffee-Stempel an Tankstellen zu sammeln",
         "Fahrzeugdaten während der Fahrt automatisch auszuwerten"
       ],
       en: [
-        "Settle international breakdowns across Europe without cash",
-        "Start the truck using a card",
-        "Collect coffee stamps at gas stations",
-        "Automatically evaluate vehicle data while driving"
+        "Cashless handling of international roadside assistance cases",
+        "Starting the truck with a card",
+        "Collecting coffee loyalty stamps at fuel stations",
+        "Automatically analyzing vehicle data while driving"
       ]
     },
     correctAnswerIndex: 0
@@ -36,8 +46,8 @@ export const QUESTIONS = [
   {
     id: 3,
     question: {
-      de: "Was ermöglichte der mobile Kalkulationsrechner ab 1979 direkt beim Lkw-Händler?",
-      en: "What did the mobile calculation calculator enable directly at the truck dealership from 1979?"
+      de: "Was ermöglichte der mobile Kalkulationsrechner ab 1979 direkt beim LKW-Händler?",
+      en: "What did the mobile calculator enable directly at dealerships from 1979 onward?"
     },
     options: {
       de: [
@@ -48,9 +58,9 @@ export const QUESTIONS = [
       ],
       en: [
         "Automatic damage reporting",
-        "Calculation of monthly rates",
-        "Digital ordering of spare parts",
-        "Live settlement of sales talks"
+        "Calculation of monthly payments",
+        "Digital spare parts ordering",
+        "Live invoicing during sales conversations"
       ]
     },
     correctAnswerIndex: 1
@@ -58,8 +68,8 @@ export const QUESTIONS = [
   {
     id: 4,
     question: {
-      de: "In welchem Jahr entstand der Einheitsstandort Europa, die Grundlage für eines der dichtesten Servicenetze Europas?",
-      en: "In which year was the unified European location established, creating one of Europe's densest service networks?"
+      de: "In welchem Jahr führte Mercedes-Benz ein europaweit einheitliches Erscheinungsbild für seine Nutzfahrzeug-Vertretungen ein?",
+      en: "In which year did Mercedes-Benz introduce a standardized visual identity for its commercial vehicle dealerships across Europe?"
     },
     options: {
       de: ["1980", "1989", "1997", "2000"],
@@ -82,9 +92,9 @@ export const QUESTIONS = [
       ],
       en: [
         "Flexible rental solutions",
-        "Digital route planning across Europe",
-        "Rest break sports program for drivers",
-        "Limousine service"
+        "Digital route planning throughout Europe",
+        "A workout program for drivers during breaks",
+        "A limousine service"
       ]
     },
     correctAnswerIndex: 0
@@ -93,7 +103,7 @@ export const QUESTIONS = [
     id: 6,
     question: {
       de: "Was sorgt beim Actros ab 1996 für mehr Planbarkeit im Alltag?",
-      en: "What has provided greater predictability in daily operations for the Actros since 1996?"
+      en: "What has helped make everyday operations more predictable for Actros customers since 1996?"
     },
     options: {
       de: [
@@ -103,9 +113,9 @@ export const QUESTIONS = [
         "Serviceverträge"
       ],
       en: [
-        "Voice assistant",
-        "Self-refilling fuel tank",
-        "Replacement driver provided by Mercedes-Benz Trucks",
+        "A voice assistant",
+        "A fuel tank that refills itself",
+        "A replacement driver provided by Mercedes-Benz Trucks",
         "Service contracts"
       ]
     },
@@ -115,7 +125,7 @@ export const QUESTIONS = [
     id: 7,
     question: {
       de: "Was war das Besondere an Fleetboard, als es 1999 startete?",
-      en: "What was special about Fleetboard when it launched in 1999?"
+      en: "What was special about Fleetboard when it was launched in 1999?"
     },
     options: {
       de: [
@@ -126,9 +136,9 @@ export const QUESTIONS = [
       ],
       en: [
         "Every truck received its own email address",
-        "Online planning and real-time vehicle data visibility",
+        "Planning moved online and vehicle data became visible in real time",
         "Autonomous driving was introduced",
-        "Drivers could watch TV channels on the road"
+        "Drivers could watch TV programs on the road"
       ]
     },
     correctAnswerIndex: 1
@@ -136,21 +146,21 @@ export const QUESTIONS = [
   {
     id: 8,
     question: {
-      de: "Was passiert bei Mercedes-Benz Trucks Uptime, bevor ein Lkw ungeplant stehen bleibt?",
-      en: "What happens with Mercedes-Benz Trucks Uptime before a truck unexpectedly breaks down?"
+      de: "Welche Aufgabe übernimmt Mercedes-Benz Trucks Uptime, um ungeplante Ausfälle zu verhindern?",
+      en: "What is the role of Mercedes-Benz Trucks Uptime in helping to prevent unplanned vehicle downtime?"
     },
     options: {
       de: [
         "Ein Ersatzfahrzeug wird automatisch bestellt",
         "Die Route wird direkt an die Polizei übermittelt",
-        "Fehler werden in Echtzeit erkannt und Werkstattbesuche proaktiv geplant",
+        "Fehler werden frühzeitig erkannt und Werkstattbesuche proaktiv geplant.",
         "Der Fahrer erhält vorsorglich einen neuen Servicevertrag"
       ],
       en: [
         "A replacement vehicle is automatically ordered",
-        "The route is transmitted directly to the police",
-        "Faults are detected in real time and workshop visits are proactively planned",
-        "The driver receives a new service contract as a precaution"
+        "The route is sent directly to the police",
+        "Potential issues are detected early and workshop visits can be planned proactively",
+        "The driver automatically receives a new service contract"
       ]
     },
     correctAnswerIndex: 2
@@ -169,10 +179,10 @@ export const QUESTIONS = [
         "Getränkekühlschrank, Snack-Flatrate und ein Massagesitz"
       ],
       en: [
-        "Consulting, charging infrastructure, and reliable operation",
+        "Consulting, charging infrastructure, and reliable operations",
         "Financing and insurance",
         "Spare parts, tires, and driver apparel",
-        "Beverage fridge, snack flat rate, and a massage seat"
+        "A drinks refrigerator, snack flat rate, and massage seat"
       ]
     },
     correctAnswerIndex: 0
@@ -181,13 +191,22 @@ export const QUESTIONS = [
     id: 10,
     question: {
       de: "Auf wie viele Teile bietet My PartsHub seit 2025 rund um die Uhr Zugriff?",
-      en: "How many parts does My PartsHub provide round-the-clock access to since 2025?"
+      en: "To how many parts has My PartsHub provided 24/7 access since 2025?"
     },
     options: {
-      de: ["Über 30.000", "Über 100.000", "Über 200.000", "Über 300.000"],
-      en: ["Over 30,000", "Over 100,000", "Over 200,000", "Over 300,000"]
+      de: [
+        "Über 30.000",
+        "Über 100.000",
+        "Über 200.000",
+        "Über 300.000"
+      ],
+      en: [
+        "More than 30,000",
+        "More than 100,000",
+        "More than 200,000",
+        "More than 300,000"
+      ]
     },
     correctAnswerIndex: 3
   }
 ];
-
