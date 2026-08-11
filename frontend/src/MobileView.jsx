@@ -218,7 +218,7 @@ export default function MobileView({ navigate }) {
   };
 
   const handleSelectOption = (idx) => {
-    if (answerSubmitted || roomState?.status !== 'question') return;
+    if (roomState?.status !== 'question') return;
 
     setSelectedOption(idx);
     setAnswerSubmitted(true);
