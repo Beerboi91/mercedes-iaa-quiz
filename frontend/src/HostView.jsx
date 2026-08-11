@@ -441,7 +441,7 @@ export default function HostView({ navigate }) {
                   </h1>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '0.5rem' }}>
-                    {sortedPlayers.map((p, idx) => (
+                    {sortedPlayers.slice(0, 4).map((p, idx) => (
                       <div key={p.id || idx} style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
                         {/* Blue Square Box with White Rank Number */}
                         <div style={{ 
@@ -472,8 +472,8 @@ export default function HostView({ navigate }) {
                     ))}
 
                     {/* Fallback empty rows if fewer than 4 players */}
-                    {Array.from({ length: Math.max(0, 4 - sortedPlayers.length) }).map((_, idx) => {
-                      const rank = sortedPlayers.length + idx + 1;
+                    {Array.from({ length: Math.max(0, 4 - Math.min(4, sortedPlayers.length)) }).map((_, idx) => {
+                      const rank = Math.min(4, sortedPlayers.length) + idx + 1;
                       return (
                         <div key={`empty-${rank}`} style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', opacity: 0.4 }}>
                           <div style={{ 
