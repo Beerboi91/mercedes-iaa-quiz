@@ -385,7 +385,7 @@ export default function MobileView({ navigate }) {
                   }}
                 />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 0.5rem', marginBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 0.5rem', marginBottom: '0.35rem' }}>
                 <span style={{ color: '#1CA0FF', fontFamily: 'MBCorpoSTitle', fontSize: '1.15rem', fontWeight: 'bold' }}>
                   {roomState.language === 'EN' ? 'QUESTION' : 'FRAGE'} {roomState.currentQuestionIndex + 1} {roomState.language === 'EN' ? 'OF' : 'VON'} {roomState.totalQuestions}
                 </span>
@@ -394,20 +394,15 @@ export default function MobileView({ navigate }) {
                 </span>
               </div>
 
-              {/* Feature A: Live Answers Count Badge */}
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              {/* Live Answers Count Plain Text Left-Aligned */}
+              <div style={{ padding: '0 0.5rem', textAlign: 'left' }}>
                 <span style={{
-                  backgroundColor: '#1CA0FF',
-                  color: '#ffffff',
-                  padding: '0.35rem 1.2rem',
-                  borderRadius: '50px',
-                  fontSize: '0.9rem',
+                  color: '#1CA0FF',
+                  fontSize: '1rem',
                   fontWeight: 'bold',
-                  fontFamily: 'MBCorpoSTitle, sans-serif',
-                  letterSpacing: '0.5px',
-                  boxShadow: '0 2px 8px rgba(28, 160, 255, 0.2)'
+                  fontFamily: 'MBCorpoSTitle, sans-serif'
                 }}>
-                  {roomState.language === 'EN' ? 'ANSWERS:' : 'ANTWORTEN:'} {roomState.answersReceivedCount || 0} / {roomState.playerCount || 0}
+                  {roomState.language === 'EN' ? 'Players answered:' : 'Spieler geantwortet:'} {roomState.answersReceivedCount || 0}/{roomState.playerCount || 0}
                 </span>
               </div>
             </div>
