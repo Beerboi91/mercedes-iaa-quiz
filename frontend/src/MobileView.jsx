@@ -440,13 +440,6 @@ export default function MobileView({ navigate }) {
                 );
               })}
             </div>
-
-            {/* Feature B: Helper hint indicating player can change answer before timeout */}
-            {answerSubmitted && (
-              <p style={{ textAlign: 'center', fontSize: '0.82rem', color: '#1CA0FF', margin: '0.25rem 0 0 0', fontFamily: 'MBCorpoSText', fontWeight: 'bold' }}>
-                {roomState.language === 'EN' ? '✓ Answer saved! Tap another to change.' : '✓ Antwort gespeichert! Antippen zum Ändern.'}
-              </p>
-            )}
           </div>
         )}
 
