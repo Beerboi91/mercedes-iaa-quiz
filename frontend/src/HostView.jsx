@@ -56,6 +56,8 @@ export default function HostView({ navigate }) {
     const customCode = `ROOM_${Math.floor(1000 + Math.random() * 9000)}`;
     socket.emit('create_room', { roomId: customCode, mode, language: selectedLang }, (response) => {
       if (response && response.success) {
+        console.log('🔑 ROOM CREATED FOR SIMULATION:', response.state.roomId);
+        window.currentRoomId = response.state.roomId;
         setRoomState(response.state);
         setStep('game');
       }
