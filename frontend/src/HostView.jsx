@@ -102,6 +102,27 @@ export default function HostView({ navigate }) {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative', backgroundColor: '#ffffff' }}>
+      {/* Persistent Bottom-Left Room ID Indicator (Discreet for Dev / Testing) */}
+      {roomState?.roomId && step === 'game' && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '1rem',
+            left: '1.5rem',
+            zIndex: 500,
+            fontFamily: 'MBCorpoSTitle, monospace',
+            fontSize: '0.85rem',
+            color: '#888888',
+            background: 'rgba(0, 0, 0, 0.04)',
+            padding: '0.25rem 0.65rem',
+            border: '1px solid rgba(0, 0, 0, 0.1)',
+            letterSpacing: '0.5px'
+          }}
+        >
+          {roomState.roomId}
+        </div>
+      )}
+
       {/* Persistent Top-Right Mercedes-Benz Star Logo (Clickable 3x to Reset anywhere) */}
       <div style={{ position: 'absolute', top: '1.5rem', right: '2.5rem', zIndex: 500 }}>
         <img
