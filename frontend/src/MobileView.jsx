@@ -275,18 +275,18 @@ export default function MobileView({ navigate }) {
 
                 <h2 style={{ fontSize: '1.6rem', fontFamily: 'MBCorpoSTitle', color: lastResult.isWinner ? '#1CA0FF' : '#000000', marginBottom: '0.5rem' }}>
                   {lastResult.isWinner
-                    ? (lastResult.language === 'EN' ? 'RANK 1 – YOU WON!' : '1. PLATZ – GEWONNEN!')
-                    : (lastResult.language === 'EN' ? `RANK ${lastResult.rank} ACHIEVED` : `${lastResult.rank}. PLATZ BELEGT`)}
+                    ? (lastResult.language === 'EN' ? '1ST PLACE – MAIN PRIZE!' : '1. PLATZ – HAUPTGEWINN!')
+                    : (lastResult.language === 'EN' ? `RANK ${lastResult.rank} – GIVEAWAY` : `${lastResult.rank}. PLATZ – GIVEAWAY`)}
                 </h2>
 
                 <p style={{ fontSize: '1.1rem', fontFamily: 'MBCorpoSText', color: lastResult.isWinner ? '#000000' : '#555555', fontWeight: lastResult.isWinner ? 'bold' : 'normal', lineHeight: '1.4' }}>
                   {lastResult.isWinner
                     ? (lastResult.language === 'EN'
-                        ? 'Show your screen at the booth to collect your free giveaway.'
-                        : 'Zeige deinen Bildschirm am Stand vor und erhalte dein free Giveaway.')
+                        ? '[Placeholder] Congratulations on the main prize! Show your screen at the booth.'
+                        : '[Platzhalter] Herzlichen Glückwunsch zum Hauptgewinn! Zeige deinen Bildschirm am Stand vor.')
                     : (lastResult.language === 'EN'
-                        ? 'Great performance! Thank you for participating.'
-                        : 'Starke Leistung! Vielen Dank fürs Mitmachen.')}
+                        ? '[Placeholder] Collect your giveaway! Show your screen at the booth.'
+                        : '[Platzhalter] Hol dir ein Giveaway! Zeige deinen Bildschirm am Stand vor.')}
                 </p>
               </div>
             )}
@@ -528,26 +528,24 @@ export default function MobileView({ navigate }) {
 
                     {isWinner ? (
                       <>
-                        <h1 style={{ fontSize: '2.6rem', marginBottom: '0.75rem', fontFamily: 'MBCorpoSTitle', color: '#1CA0FF', lineHeight: '1.1' }}>
-                          {roomState.language === 'EN' ? 'YOU WON!' : 'GEWONNEN!'}
+                        <h1 style={{ fontSize: '2.4rem', marginBottom: '0.75rem', fontFamily: 'MBCorpoSTitle', color: '#1CA0FF', lineHeight: '1.1' }}>
+                          {roomState.language === 'EN' ? '1ST PLACE – MAIN PRIZE!' : '1. PLATZ – HAUPTGEWINN!'}
                         </h1>
                         <p style={{ fontSize: '1.2rem', color: '#000000', marginBottom: '1.5rem', fontFamily: 'MBCorpoSText', lineHeight: '1.4' }}>
                           {roomState.language === 'EN'
-                            ? 'Show your screen at the booth to collect your free giveaway.'
-                            : 'Zeige deinen Bildschirm am Stand vor und erhalte dein free Giveaway.'}
+                            ? '[Placeholder] Congratulations on the main prize! Show your screen at the booth.'
+                            : '[Platzhalter] Herzlichen Glückwunsch zum Hauptgewinn! Zeige deinen Bildschirm am Stand vor.'}
                         </p>
                       </>
                     ) : (
                       <>
-                        <h1 style={{ fontSize: '2.4rem', marginBottom: '0.75rem', fontFamily: 'MBCorpoSTitle', color: '#000000', lineHeight: '1.1' }}>
-                          {roomState.language === 'EN' ? 'GREAT PERFORMANCE!' : 'STARKE LEISTUNG!'}
+                        <h1 style={{ fontSize: '2.2rem', marginBottom: '0.75rem', fontFamily: 'MBCorpoSTitle', color: '#000000', lineHeight: '1.1' }}>
+                          {roomState.language === 'EN' ? `RANK ${rank} – GIVEAWAY` : `${rank}. PLATZ – GIVEAWAY`}
                         </h1>
                         <p style={{ fontSize: '1.2rem', color: '#737373', marginBottom: '1.5rem', fontFamily: 'MBCorpoSText', lineHeight: '1.4' }}>
-                          {roomState.language === 'EN' ? (
-                            <>You achieved rank {rank}.<br />Thank you for participating!</>
-                          ) : (
-                            <>Du hast den {rank}. Platz belegt.<br />Vielen Dank fürs Mitmachen!</>
-                          )}
+                          {roomState.language === 'EN'
+                            ? '[Placeholder] Collect your giveaway! Show your screen at the booth.'
+                            : '[Platzhalter] Hol dir ein Giveaway! Zeige deinen Bildschirm am Stand vor.'}
                         </p>
                       </>
                     )}
