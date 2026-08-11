@@ -298,21 +298,9 @@ export default function HostView({ navigate }) {
                   {roomState.players.map((p) => (
                     <div
                       key={p.id}
-                      className="mb-slide-enter"
+                      className="mb-player-pill mb-slide-enter"
                       style={{
-                        background: '#1CA0FF',
-                        color: '#ffffff',
-                        padding: '0.85rem 2.5rem',
-                        borderRadius: '50px',
-                        fontFamily: 'MBCorpoSTitle, sans-serif',
-                        fontSize: '1.35rem',
-                        fontWeight: 'bold',
-                        letterSpacing: '0.5px',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        opacity: p.disconnected ? 0.5 : 1,
-                        boxShadow: '0 4px 12px rgba(28, 160, 255, 0.2)'
+                        opacity: p.disconnected ? 0.5 : 1
                       }}
                     >
                       {p.nickname} {p.disconnected ? '(Offline)' : ''}
