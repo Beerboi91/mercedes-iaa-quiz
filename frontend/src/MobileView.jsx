@@ -374,7 +374,7 @@ export default function MobileView({ navigate }) {
         {joined && roomState?.status === 'question' && (
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between', padding: '0.5rem 0 1rem 0' }}>
             {/* Top Timer Progress Bar & Counter (GANZ OBEN) */}
-            <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
+            <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
               <div style={{ width: '100%', height: '6px', background: '#e5e5e5', marginBottom: '0.6rem' }}>
                 <div
                   style={{
@@ -385,7 +385,7 @@ export default function MobileView({ navigate }) {
                   }}
                 />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 0.5rem', marginBottom: '0.5rem' }}>
                 <span style={{ color: '#1CA0FF', fontFamily: 'MBCorpoSTitle', fontSize: '1.15rem', fontWeight: 'bold' }}>
                   {roomState.language === 'EN' ? 'QUESTION' : 'FRAGE'} {roomState.currentQuestionIndex + 1} {roomState.language === 'EN' ? 'OF' : 'VON'} {roomState.totalQuestions}
                 </span>
@@ -393,20 +393,37 @@ export default function MobileView({ navigate }) {
                   {roomState.timerSeconds}S
                 </span>
               </div>
+
+              {/* Feature A: Live Answers Count Badge */}
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <span style={{
+                  backgroundColor: '#1CA0FF',
+                  color: '#ffffff',
+                  padding: '0.35rem 1.2rem',
+                  borderRadius: '50px',
+                  fontSize: '0.9rem',
+                  fontWeight: 'bold',
+                  fontFamily: 'MBCorpoSTitle, sans-serif',
+                  letterSpacing: '0.5px',
+                  boxShadow: '0 2px 8px rgba(28, 160, 255, 0.2)'
+                }}>
+                  {roomState.language === 'EN' ? 'ANSWERS:' : 'ANTWORTEN:'} {roomState.answersReceivedCount || 0} / {roomState.playerCount || 0}
+                </span>
+              </div>
             </div>
 
             {/* Top Logo */}
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.25rem' }}>
-              <img src="/logo.svg" alt="Mercedes-Benz Logo" style={{ height: '65px' }} />
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+              <img src="/logo.svg" alt="Mercedes-Benz Logo" style={{ height: '60px' }} />
             </div>
 
             {/* Question Text Centered */}
-            <h2 className="mb-slide-enter" style={{ fontSize: '1.6rem', textAlign: 'center', marginBottom: '1.5rem', lineHeight: '1.3', fontFamily: 'MBCorpoSTitle', color: '#000000', textTransform: 'uppercase' }}>
+            <h2 className="mb-slide-enter" style={{ fontSize: '1.5rem', textAlign: 'center', marginBottom: '1.25rem', lineHeight: '1.3', fontFamily: 'MBCorpoSTitle', color: '#000000', textTransform: 'uppercase' }}>
               {roomState.currentQuestion?.questionText}
             </h2>
 
             {/* Option Buttons (Matching Frame 2 Layout) */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '0.5rem' }}>
               {roomState.currentQuestion?.options.map((opt, idx) => {
                 const isSelected = selectedOption === idx;
                 const letter = String.fromCharCode(65 + idx);
@@ -423,6 +440,13 @@ export default function MobileView({ navigate }) {
                 );
               })}
             </div>
+
+            {/* Feature B: Helper hint indicating player can change answer before timeout */}
+            {answerSubmitted && (
+              <p style={{ textAlign: 'center', fontSize: '0.82rem', color: '#1CA0FF', margin: '0.25rem 0 0 0', fontFamily: 'MBCorpoSText', fontWeight: 'bold' }}>
+                {roomState.language === 'EN' ? '✓ Answer saved! Tap another to change.' : '✓ Antwort gespeichert! Antippen zum Ändern.'}
+              </p>
+            )}
           </div>
         )}
 

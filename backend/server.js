@@ -369,7 +369,7 @@ io.on('connection', (socket) => {
     broadcastRoomState(roomId);
   });
 
-  // Submit answer (Mobile action)
+  // Submit or change answer (Mobile action)
   socket.on('submit_answer', ({ roomId, optionIndex }, callback) => {
     const room = rooms.get(roomId);
     if (!room || room.status !== 'question') {
@@ -378,8 +378,8 @@ io.on('connection', (socket) => {
     }
 
     const player = room.players.find(p => p.id === socket.id);
-    if (!player || player.answered) {
-      safeCallback(callback, { success: false, error: 'ALREADY_ANSWERED' });
+    if (!player) {
+      safeCallback(callback, { success: false, error: 'PLAYER_NOT_FOUND' });
       return;
     }
 
@@ -387,6 +387,11 @@ io.on('connection', (socket) => {
     const startTime = room.questionStartTime || Date.now();
     const secondsTaken = Math.max(0, (Date.now() - startTime) / 1000);
     const isCorrect = optionIndex === currentQ.correctAnswerIndex;
+
+    // If player previously answered, revert their previous score contribution first
+    if (player.answered && player.lastAnswerCorrect) {
+      player.score = Math.max(0, player.score - (player.lastPointsEarned || 0));
+    }
 
     player.answered = true;
     player.lastAnswerCorrect = isCorrect;
@@ -401,9 +406,9 @@ io.on('connection', (socket) => {
       player.lastPointsEarned = 0;
     }
 
-    safeCallback(callback, { success: true, isCorrect, pointsEarned: player.lastPointsEarned });
+    safeCallback(callback, { success: true, isCorrect, pointsEarned: player.lastPointsEarned, optionIndex });
 
-    // Update real-time count on host
+    // Update real-time count on host and mobile
     broadcastRoomState(roomId);
 
     // Check if all connected players submitted
