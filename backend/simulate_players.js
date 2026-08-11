@@ -1,10 +1,10 @@
 import { io } from 'socket.io-client';
 
 // Usage: node simulate_players.js <ROOM_ID> <BOT_COUNT> <SERVER_URL>
-// Example: node simulate_players.js ROOM_1234 15 https://mercedes-iaa-quiz.onrender.com
+// Example: node simulate_players.js ROOM_1234 30 https://mercedes-iaa-quiz.onrender.com
 
 const targetRoom = (process.argv[2] || 'ROOM_1234').toUpperCase();
-const botCount = Math.min(20, parseInt(process.argv[3] || '15', 10));
+const botCount = Math.min(50, parseInt(process.argv[3] || '30', 10));
 const serverUrl = process.argv[4] || 'https://mercedes-iaa-quiz.onrender.com';
 
 console.log(`\n🤖 =================================================`);
@@ -15,10 +15,11 @@ console.log(`   Target URL: ${serverUrl}`);
 console.log(`=================================================\n`);
 
 const botNames = [
-  'Michael', 'Sarah', 'Alex', 'Elena', 'Lucas',
-  'David', 'Emma', 'Daniel', 'Sophie', 'Felix',
-  'Laura', 'Julian', 'Anna', 'Marco', 'Clara',
-  'Maximilian', 'Mia', 'Tim', 'Hannah', 'Ben'
+  'Michael', 'Sarah', 'Alex', 'Elena', 'Lucas', 'David', 'Emma', 'Daniel', 'Sophie', 'Felix',
+  'Laura', 'Julian', 'Anna', 'Marco', 'Clara', 'Maximilian', 'Mia', 'Tim', 'Hannah', 'Ben',
+  'Jonas', 'Lea', 'Niklas', 'Marie', 'Leon', 'Lina', 'Paul', 'Sophia', 'Finn', 'Emily',
+  'Noah', 'Charlotte', 'Elias', 'Amelie', 'Louis', 'Ella', 'Moritz', 'Luisa', 'Henry', 'Johanna',
+  'Lukas', 'Nele', 'Philipp', 'Mathilda', 'Jan', 'Ida', 'Fabian', 'Lotte', 'Florian', 'Maja'
 ];
 
 for (let i = 0; i < botCount; i++) {
@@ -74,7 +75,7 @@ for (let i = 0; i < botCount; i++) {
     socket.on('disconnect', () => {
       console.log(`🔌 [Bot ${name}] Disconnected`);
     });
-  }, i * 150);
+  }, i * 120);
 }
 
 console.log(`🚀 ${botCount} Bots initializing... Keep this terminal open while testing.\n`);
