@@ -450,9 +450,9 @@ export default function HostView({ navigate }) {
               <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', alignItems: 'center', width: '100%', zIndex: 2 }}>
                 
                 {/* Left Column: Title & Player Rows */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.8rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
                   <h1 style={{ 
-                    fontSize: '4.5rem', 
+                    fontSize: '4.2rem', 
                     fontWeight: '900', 
                     letterSpacing: '0.05em', 
                     color: '#000000', 
@@ -463,19 +463,19 @@ export default function HostView({ navigate }) {
                     {roomState.language === 'EN' ? 'RANKING' : 'RANKING'}
                   </h1>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '0.5rem' }}>
-                    {sortedPlayers.slice(0, 4).map((p, idx) => (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.25rem' }}>
+                    {sortedPlayers.slice(0, 5).map((p, idx) => (
                       <div key={p.id || idx} style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
                         {/* Blue Square Box with White Rank Number */}
                         <div style={{ 
-                          width: '44px', 
-                          height: '44px', 
+                          width: '42px', 
+                          height: '42px', 
                           backgroundColor: '#1CA0FF', 
                           color: '#FFFFFF', 
                           display: 'flex', 
                           alignItems: 'center', 
                           justifyContent: 'center', 
-                          fontSize: '1.6rem', 
+                          fontSize: '1.5rem', 
                           fontWeight: 'bold', 
                           fontFamily: 'MBCorpoSTitle, sans-serif' 
                         }}>
@@ -484,7 +484,7 @@ export default function HostView({ navigate }) {
 
                         {/* Player Name and Points */}
                         <span style={{ 
-                          fontSize: '2.2rem', 
+                          fontSize: '2rem', 
                           fontWeight: 'bold', 
                           color: '#000000', 
                           fontFamily: 'MBCorpoSTitle, sans-serif' 
@@ -494,27 +494,27 @@ export default function HostView({ navigate }) {
                       </div>
                     ))}
 
-                    {/* Fallback empty rows if fewer than 4 players */}
-                    {Array.from({ length: Math.max(0, 4 - Math.min(4, sortedPlayers.length)) }).map((_, idx) => {
-                      const rank = Math.min(4, sortedPlayers.length) + idx + 1;
+                    {/* Fallback empty rows if fewer than 5 players */}
+                    {Array.from({ length: Math.max(0, 5 - Math.min(5, sortedPlayers.length)) }).map((_, idx) => {
+                      const rank = Math.min(5, sortedPlayers.length) + idx + 1;
                       return (
                         <div key={`empty-${rank}`} style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', opacity: 0.4 }}>
                           <div style={{ 
-                            width: '44px', 
-                            height: '44px', 
+                            width: '42px', 
+                            height: '42px', 
                             backgroundColor: '#1CA0FF', 
                             color: '#FFFFFF', 
                             display: 'flex', 
                             alignItems: 'center', 
                             justifyContent: 'center', 
-                            fontSize: '1.6rem', 
+                            fontSize: '1.5rem', 
                             fontWeight: 'bold', 
                             fontFamily: 'MBCorpoSTitle, sans-serif' 
                           }}>
                             {rank}
                           </div>
                           <span style={{ 
-                            fontSize: '2.2rem', 
+                            fontSize: '2rem', 
                             fontWeight: 'bold', 
                             color: '#000000', 
                             fontFamily: 'MBCorpoSTitle, sans-serif' 
