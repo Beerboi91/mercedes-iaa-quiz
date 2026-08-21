@@ -17,21 +17,13 @@ export default function MobileView({ navigate }) {
   const [giveawayClaimed, setGiveawayClaimed] = useState(false);
   const [roundEnded, setRoundEnded] = useState(false);
   const [lastResult, setLastResult] = useState(() => {
+    // If scanning via QR code with a room parameter, start fresh for that room
+    if (roomParam) {
+      return null;
+    }
     try {
       const saved = localStorage.getItem('mb_quiz_last_result');
-      if (!saved) return null;
-      const parsed = JSON.parse(saved);
-      // If user scanned a QR code with a roomParam, check if it differs
-      if (roomParam) {
-        const cleanParam = roomParam.trim().toUpperCase();
-        if (parsed?.roomId && parsed.roomId !== cleanParam) {
-          localStorage.removeItem('mb_quiz_last_result');
-          sessionStorage.removeItem('mb_quiz_session');
-          localStorage.removeItem('mb_quiz_session');
-          return null;
-        }
-      }
-      return parsed;
+      return saved ? JSON.parse(saved) : null;
     } catch (e) {
       return null;
     }
@@ -99,10 +91,14 @@ export default function MobileView({ navigate }) {
     }
   };
 
-  // Pre-fetch room info (language) when roomParam is present
+  // Pre-fetch room info (language) when roomParam is present & reset old roundEnded/lastResult
   useEffect(() => {
     if (roomParam) {
       const cleanRoom = roomParam.trim().toUpperCase();
+      setRoundEnded(false);
+      setLastResult(null);
+      setRoomId(cleanRoom);
+
       socket.emit('get_room_info', { roomId: cleanRoom }, (res) => {
         if (res && res.success && res.language) {
           setRoomState(prev => prev ? { ...prev, language: res.language } : { language: res.language });
