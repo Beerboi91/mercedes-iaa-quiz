@@ -133,10 +133,12 @@ export default function MobileView({ navigate }) {
         return;
       }
 
-      setRoomState(state);
+      const currentSession = getStoredSession();
+      const myKey = currentSession?.playerKey;
+      const findMe = (players) => players.find(p => (myKey && p.playerKey === myKey) || p.id === socket.id);
 
       if (state.status === 'question' && answerSubmitted && state.players) {
-        const me = state.players.find(p => p.id === socket.id);
+        const me = findMe(state.players);
         if (me && !me.answered) {
           setAnswerSubmitted(false);
           setSelectedOption(null);
@@ -145,7 +147,7 @@ export default function MobileView({ navigate }) {
 
       if (state.status === 'leaderboard' && state.players) {
         const sorted = [...state.players].sort((a, b) => b.score - a.score);
-        const rankIndex = sorted.findIndex(p => p.id === socket.id);
+        const rankIndex = sorted.findIndex(p => (myKey && p.playerKey === myKey) || p.id === socket.id);
         if (rankIndex >= 0) {
           const rank = rankIndex + 1;
           const isWinner = rank === 1;
@@ -158,7 +160,7 @@ export default function MobileView({ navigate }) {
       }
 
       if (state.status === 'feedback' && state.players) {
-        const me = state.players.find(p => p.id === socket.id);
+        const me = findMe(state.players);
         if (me) {
           setLastFeedback({
             isCorrect: me.lastAnswerCorrect,

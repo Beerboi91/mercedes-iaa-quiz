@@ -55,8 +55,8 @@ function getPublicRoomState(room) {
     answersReceivedCount: room.players.filter(p => p.answered && !p.disconnected).length,
     currentQuestion: currentQ ? {
       id: currentQ.id,
-      questionText: currentQ.question[room.language.toLowerCase()] || currentQ.question.de,
-      options: currentQ.options[room.language.toLowerCase()] || currentQ.options.de,
+      questionText: (room.language && currentQ.question[room.language.toLowerCase()]) || currentQ.question.de || '',
+      options: (room.language && currentQ.options[room.language.toLowerCase()]) || currentQ.options.de || [],
       correctAnswerIndex: room.status === 'feedback' || room.status === 'leaderboard' ? currentQ.correctAnswerIndex : null
     } : null
   };
@@ -217,25 +217,66 @@ function advanceToNextQuestion(room) {
   broadcastRoomState(room.roomId);
 }
 
+// Fisher-Yates Shuffle for true uniform distribution
+function shuffleArray(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// Helper to sanitize player nickname
+function sanitizeNickname(rawNickname, fallbackIndex) {
+  if (!rawNickname || typeof rawNickname !== 'string') {
+    return `Player_${fallbackIndex}`;
+  }
+  const cleaned = rawNickname
+    .trim()
+    .replace(/[^\p{L}\p{N}\s\-_.]/gu, '')
+    .substring(0, 15);
+  return cleaned || `Player_${fallbackIndex}`;
+}
+
 const safeCallback = (cb, data) => {
   if (typeof cb === 'function') cb(data);
 };
+
+// Periodic cleanup of stale/abandoned rooms (inactive > 1 hour)
+setInterval(() => {
+  const now = Date.now();
+  for (const [roomId, room] of rooms.entries()) {
+    const lastActive = room.lastActivity || room.createdAt || now;
+    if (now - lastActive > 3600000) {
+      if (room.timerInterval) clearInterval(room.timerInterval);
+      if (room.feedbackTimerInterval) clearInterval(room.feedbackTimerInterval);
+      if (room.emptyRoomTimerInterval) clearInterval(room.emptyRoomTimerInterval);
+      rooms.delete(roomId);
+      console.log(`Cleaned up abandoned room ${roomId}`);
+    }
+  }
+}, 60000);
 
 io.on('connection', (socket) => {
   console.log(`Socket connected: ${socket.id}`);
 
   // Create room (Host action)
-  socket.on('create_room', ({ roomId, mode = 'standard', language = 'DE' }, callback) => {
+  socket.on('create_room', ({ roomId, mode = 'standard', language = 'DE', hostKey }, callback) => {
     const code = roomId || `ROOM_${Math.floor(1000 + Math.random() * 9000)}`;
+    const effectiveHostKey = hostKey || `HOST_${Math.random().toString(36).substring(2, 11)}`;
     
-    // Select questions
-    const shuffledQuestions = [...QUESTIONS].sort(() => 0.5 - Math.random());
+    // Select shuffled questions using Fisher-Yates
+    const shuffledQuestions = shuffleArray(QUESTIONS);
     
     const newRoom = {
       roomId: code,
       hostSocketId: socket.id,
+      hostKey: effectiveHostKey,
+      createdAt: Date.now(),
+      lastActivity: Date.now(),
       mode, // 'standard' (10) or 'express' (5)
-      language, // 'DE' or 'EN'
+      language: language || 'DE', // 'DE' or 'EN'
       status: 'lobby',
       players: [],
       questions: shuffledQuestions,
@@ -253,35 +294,39 @@ io.on('connection', (socket) => {
     socket.roomId = code;
     socket.isHost = true;
 
-    console.log(`Room created: ${code}`);
-    safeCallback(callback, { success: true, roomId: code, state: getPublicRoomState(newRoom) });
+    console.log(`Room created: ${code} with hostKey: ${effectiveHostKey}`);
+    safeCallback(callback, { success: true, roomId: code, hostKey: effectiveHostKey, state: getPublicRoomState(newRoom) });
     broadcastRoomState(code);
   });
 
   // Get Room Info (Mobile pre-join language lookup)
   socket.on('get_room_info', ({ roomId }, callback) => {
+    if (!roomId) return safeCallback(callback, { success: false, error: 'INVALID_ROOM' });
     const room = rooms.get(roomId);
     if (!room) {
       safeCallback(callback, { success: false, error: 'ROOM_NOT_FOUND' });
       return;
     }
+    room.lastActivity = Date.now();
     safeCallback(callback, { success: true, language: room.language, mode: room.mode, status: room.status });
   });
 
   // Join room (Mobile action)
   socket.on('join_room', ({ roomId, nickname, playerKey }, callback) => {
+    if (!roomId) return safeCallback(callback, { success: false, error: 'INVALID_ROOM' });
     const room = rooms.get(roomId);
     
     if (!room) {
       return safeCallback(callback, { success: false, error: 'ROOM_NOT_FOUND', message: 'RAUM NICHT GEFUNDEN / ROOM NOT FOUND' });
     }
 
+    room.lastActivity = Date.now();
     const key = playerKey || `PK_${Math.random().toString(36).substring(2, 9)}`;
 
     // OPTION A: Check if player is rejoining after refresh (by playerKey OR nickname)
     let player = room.players.find(p => 
       (key && p.playerKey === key) || 
-      (nickname && p.nickname.toLowerCase() === nickname.trim().toLowerCase())
+      (nickname && p.nickname.toLowerCase() === String(nickname).trim().toLowerCase())
     );
     
     if (player && room.status !== 'title') {
@@ -306,13 +351,15 @@ io.on('connection', (socket) => {
 
     const activePlayers = room.players.filter(p => !p.disconnected);
     if (activePlayers.length >= MAX_PLAYERS) {
-      return safeCallback(callback, { success: false, error: 'ROOM_FULL', message: 'RAUM IST VOLL (MAX 4 SPIELER)' });
+      return safeCallback(callback, { success: false, error: 'ROOM_FULL', message: 'RAUM IST VOLL (MAX 50 SPIELER)' });
     }
+
+    const cleanedNickname = sanitizeNickname(nickname, activePlayers.length + 1);
 
     player = {
       id: socket.id,
       playerKey: key,
-      nickname: nickname.trim() || `Player_${activePlayers.length + 1}`,
+      nickname: cleanedNickname,
       score: 0,
       answered: false,
       lastAnswerCorrect: null,
@@ -339,6 +386,7 @@ io.on('connection', (socket) => {
     const room = rooms.get(targetRoomId);
     if (!room) return;
 
+    room.lastActivity = Date.now();
     console.log(`Player on socket ${socket.id} left room ${targetRoomId}`);
     room.players = room.players.filter(p => p.id !== socket.id);
     socket.leave(targetRoomId);
@@ -348,14 +396,18 @@ io.on('connection', (socket) => {
   });
 
   // Host starts quiz
-  socket.on('start_quiz', ({ roomId }) => {
+  socket.on('start_quiz', ({ roomId, hostKey }) => {
     const room = rooms.get(roomId);
     if (!room || room.status !== 'lobby') return;
 
-    if (socket.id !== room.hostSocketId) {
+    const isHostAuthorized = socket.id === room.hostSocketId || (hostKey && hostKey === room.hostKey);
+    if (!isHostAuthorized) {
       console.warn(`Unauthorized start_quiz attempt from socket ${socket.id} on room ${roomId}`);
       return;
     }
+    // Update socket ID if reconnected host
+    room.hostSocketId = socket.id;
+    room.lastActivity = Date.now();
 
     room.status = 'question';
     room.currentQuestionIndex = 0;
@@ -370,6 +422,7 @@ io.on('connection', (socket) => {
   });
 
   // Submit or change answer (Mobile action)
+  // Allowed anytime while room.status === 'question' before the phase ends
   socket.on('submit_answer', ({ roomId, optionIndex }, callback) => {
     const room = rooms.get(roomId);
     if (!room || room.status !== 'question') {
@@ -377,6 +430,7 @@ io.on('connection', (socket) => {
       return;
     }
 
+    room.lastActivity = Date.now();
     const player = room.players.find(p => p.id === socket.id);
     if (!player) {
       safeCallback(callback, { success: false, error: 'PLAYER_NOT_FOUND' });
@@ -384,20 +438,32 @@ io.on('connection', (socket) => {
     }
 
     const currentQ = room.questions[room.currentQuestionIndex];
+    if (!currentQ || !currentQ.options) {
+      safeCallback(callback, { success: false, error: 'INVALID_QUESTION_STATE' });
+      return;
+    }
+
+    const availableOptionsCount = (currentQ.options.de || currentQ.options.en || []).length;
+    if (typeof optionIndex !== 'number' || optionIndex < 0 || optionIndex >= availableOptionsCount) {
+      safeCallback(callback, { success: false, error: 'INVALID_OPTION_INDEX' });
+      return;
+    }
+
     const startTime = room.questionStartTime || Date.now();
     const secondsTaken = Math.max(0, (Date.now() - startTime) / 1000);
     const isCorrect = optionIndex === currentQ.correctAnswerIndex;
 
-    // If player previously answered, revert their previous score contribution first
-    if (player.answered && player.lastAnswerCorrect) {
-      player.score = Math.max(0, player.score - (player.lastPointsEarned || 0));
+    // If player already submitted an answer for this question and received points, revert previous points first
+    if (player.answered && (player.lastPointsEarned || 0) > 0) {
+      player.score = Math.max(0, player.score - player.lastPointsEarned);
+      player.lastPointsEarned = 0;
     }
 
     player.answered = true;
     player.lastAnswerCorrect = isCorrect;
 
     if (isCorrect) {
-      // Sockel-Scoring: 50 Base Points + Up to 50 Speed Bonus Points
+      // Base: 50 points + speed bonus up to 50 points based on time elapsed when choosing this answer
       const speedBonus = Math.max(0, Math.round(50 * (1 - (secondsTaken / QUESTION_TIMEOUT_SECONDS))));
       const points = 50 + speedBonus;
       player.lastPointsEarned = points;
@@ -416,24 +482,28 @@ io.on('connection', (socket) => {
   });
 
   // Next question or view leaderboard (Host action or Auto-advance)
-  socket.on('next_question', ({ roomId }) => {
+  socket.on('next_question', ({ roomId, hostKey }) => {
     const room = rooms.get(roomId);
     if (!room) return;
 
-    if (socket.id !== room.hostSocketId) {
+    const isHostAuthorized = socket.id === room.hostSocketId || (hostKey && hostKey === room.hostKey);
+    if (!isHostAuthorized) {
       console.warn(`Unauthorized next_question attempt from socket ${socket.id} on room ${roomId}`);
       return;
     }
+    room.hostSocketId = socket.id;
+    room.lastActivity = Date.now();
 
     advanceToNextQuestion(room);
   });
 
   // Admin Hostess Quick Reset
-  socket.on('reset_room', ({ roomId }) => {
+  socket.on('reset_room', ({ roomId, hostKey }) => {
     const room = rooms.get(roomId);
     if (!room) return;
 
-    if (socket.id !== room.hostSocketId) {
+    const isHostAuthorized = socket.id === room.hostSocketId || (hostKey && hostKey === room.hostKey);
+    if (!isHostAuthorized) {
       console.warn(`Unauthorized reset_room attempt from socket ${socket.id} on room ${roomId}`);
       return;
     }
@@ -449,6 +519,7 @@ io.on('connection', (socket) => {
     if (socket.roomId) {
       const room = rooms.get(socket.roomId);
       if (room) {
+        room.lastActivity = Date.now();
         const player = room.players.find(p => p.id === socket.id);
         if (player) {
           player.disconnected = true;

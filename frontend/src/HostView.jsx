@@ -47,9 +47,21 @@ export default function HostView({ navigate }) {
       }
     };
 
+    const handleRoomReset = () => {
+      setRoomState(null);
+      setStep('title');
+      sessionStorage.removeItem('mb_quiz_host_key');
+    };
+
     socket.on('room_state', handleRoomState);
-    return () => socket.off('room_state', handleRoomState);
+    socket.on('room_reset', handleRoomReset);
+    return () => {
+      socket.off('room_state', handleRoomState);
+      socket.off('room_reset', handleRoomReset);
+    };
   }, []);
+
+  const getStoredHostKey = () => sessionStorage.getItem('mb_quiz_host_key') || undefined;
 
   const handleStartSession = (selectedLang) => {
     setLanguage(selectedLang);
@@ -58,6 +70,9 @@ export default function HostView({ navigate }) {
       if (response && response.success) {
         console.log('🔑 ROOM CREATED FOR SIMULATION:', response.state.roomId);
         window.currentRoomId = response.state.roomId;
+        if (response.hostKey) {
+          sessionStorage.setItem('mb_quiz_host_key', response.hostKey);
+        }
         setRoomState(response.state);
         setStep('game');
       }
@@ -66,13 +81,13 @@ export default function HostView({ navigate }) {
 
   const handleStartQuizNow = () => {
     if (roomState?.roomId) {
-      socket.emit('start_quiz', { roomId: roomState.roomId });
+      socket.emit('start_quiz', { roomId: roomState.roomId, hostKey: getStoredHostKey() });
     }
   };
 
   const handleNextQuestion = () => {
     if (roomState?.roomId) {
-      socket.emit('next_question', { roomId: roomState.roomId });
+      socket.emit('next_question', { roomId: roomState.roomId, hostKey: getStoredHostKey() });
     }
   };
 
@@ -154,7 +169,7 @@ export default function HostView({ navigate }) {
                 style={{ flex: 1, padding: '1rem', fontSize: '1.1rem' }}
                 onClick={() => {
                   if (roomState?.roomId) {
-                    socket.emit('reset_room', { roomId: roomState.roomId });
+                    socket.emit('reset_room', { roomId: roomState.roomId, hostKey: getStoredHostKey() });
                   }
                   setRoomState(null);
                   setStep('title');
@@ -185,7 +200,7 @@ export default function HostView({ navigate }) {
             <p style={{ fontSize: '1.3rem', color: '#1CA0FF', marginBottom: '2rem', fontFamily: 'MBCorpoSTitle', fontWeight: 'bold' }}>
               Warte auf Wiederverbindung... Auto-Reset in {roomState.emptyRoomTimerSeconds}S
             </p>
-            <button className="mb-btn" onClick={() => { socket.emit('reset_room', { roomId: roomState.roomId }); setStep('title'); }}>
+            <button className="mb-btn" onClick={() => { socket.emit('reset_room', { roomId: roomState.roomId, hostKey: getStoredHostKey() }); setStep('title'); }}>
               SOFORT ZURÜCKSETZEN
             </button>
           </div>
@@ -529,7 +544,7 @@ export default function HostView({ navigate }) {
                       style={{ padding: '1.2rem 3rem', fontSize: '1.5rem', fontWeight: 'bold' }}
                       onClick={() => {
                         if (roomState?.roomId) {
-                          socket.emit('reset_room', { roomId: roomState.roomId });
+                          socket.emit('reset_room', { roomId: roomState.roomId, hostKey: getStoredHostKey() });
                         }
                         setRoomState(null);
                         setStep('title');
