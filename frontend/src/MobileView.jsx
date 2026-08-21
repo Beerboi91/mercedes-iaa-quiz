@@ -133,6 +133,8 @@ export default function MobileView({ navigate }) {
         return;
       }
 
+      setRoomState(state);
+
       const currentSession = getStoredSession();
       const myKey = currentSession?.playerKey;
       const findMe = (players) => players.find(p => (myKey && p.playerKey === myKey) || p.id === socket.id);
